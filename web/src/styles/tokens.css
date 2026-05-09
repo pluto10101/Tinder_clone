@@ -1,0 +1,40 @@
+:root {
+  /* 品牌主渐变 */
+  --brand-from: #fd297b;
+  --brand-via: #ff5864;
+  --brand-to: #ff655b;
+  --brand-gradient: linear-gradient(135deg, #fd297b 0%, #ff5864 50%, #ff655b 100%);
+
+  /* 功能色 */
+  --color-nope: #f2385a;
+  --color-like: #4cdc8f;
+  --color-super: #42a5f5;
+  --color-rewind: #ffb800;
+  --color-boost: #b74fff;
+
+  /* 中性色 */
+  --text-primary: #111;
+  --text-secondary: #666;
+  --text-tertiary: #999;
+  --bg-page: #f8f8f8;
+  --bg-card: #ffffff;
+  --border: #eeeeee;
+
+  /* 尺寸 */
+  --radius-card: 12px;
+  --radius-btn: 9999px;
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+  --bottom-nav-height: 72px;
+  --action-bar-height: 80px;
+  --top-nav-height: 56px;
+}
+
+[data-theme='dark'] {
+  --bg-page: #1a1a1a;
+  --bg-card: #262626;
+  --text-primary: #ffffff;
+  --text-secondary: #aaaaaa;
+  --text-tertiary: #888888;
+  --border: #333333;
+}
