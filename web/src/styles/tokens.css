@@ -33,7 +33,7 @@
 [data-theme='dark'] {
   --bg-page: #1a1a1a;
   --bg-card: #262626;
-  --text-primary: #ffffff;
+  --text-primary: rgba(11, 10, 10, 0.16);
   --text-secondary: #aaaaaa;
   --text-tertiary: #888888;
   --border: #333333;

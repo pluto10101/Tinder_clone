@@ -112,8 +112,8 @@ function onTouchEnd(e: TouchEvent) {
 .plus-header { display: flex; align-items: center; justify-content: center; padding: 16px 20px; position: relative; }
 .plus-close { position: absolute; left: 20px; width: 32px; height: 32px; font-size: 18px; color: #111; background: none; border: none; cursor: pointer; }
 .plus-brand { display: flex; align-items: center; gap: 4px; }
-.plus-brand-text { font-weight: 700; font-style: italic; color: #fe3c72; font-size: 16px; }
-.plus-badge { color: #fe3c72; font-size: 18px; font-weight: 300; margin-left: 2px; }
+.plus-brand-text { font-weight: 700; font-style: italic; color: #030303ff; font-size: 16px; }
+.plus-badge { color: #000000ff; font-size: 18px; font-weight: 300; margin-left: 2px; }
 
 .plus-body { flex: 1; overflow-y: auto; padding: 0 24px 24px; }
 .plus-title { font-size: 22px; font-weight: 800; color: #111; margin: 0 0 24px; line-height: 1.4; }

@@ -191,7 +191,7 @@ function goBack() {
       <section class="promo-section">
         <div class="promo-card promo-platinum" @click="showPlatinum = true">
           <div class="promo-brand">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 6 8 6 13.5C6 17.6 9 21 12 21C15 21 18 17.6 18 13.5C18 10 15.5 8 15.5 8C15.5 8 15 12 13 12C13 12 14 7 12 2Z" fill="#111"/></svg>
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 6 8 6 13.5C6 17.6 9 21 12 21C15 21 18 17.6 18 13.5C18 10 15.5 8 15.5 8C15.5 8 15 12 13 12C13 12 14 7 12 2Z" fill="#111"/></svg>
             <span class="promo-name">tinder</span>
             <span class="promo-tier promo-tier-plat">PLATINUM</span>
           </div>
@@ -200,7 +200,7 @@ function goBack() {
 
         <div class="promo-card promo-gold" @click="showGoldUpgrade = true">
           <div class="promo-brand">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 6 8 6 13.5C6 17.6 9 21 12 21C15 21 18 17.6 18 13.5C18 10 15.5 8 15.5 8C15.5 8 15 12 13 12C13 12 14 7 12 2Z" fill="#c9a000"/></svg>
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 6 8 6 13.5C6 17.6 9 21 12 21C15 21 18 17.6 18 13.5C18 10 15.5 8 15.5 8C15.5 8 15 12 13 12C13 12 14 7 12 2Z" fill="#c9a000"/></svg>
             <span class="promo-name">tinder</span>
             <span class="promo-tier promo-tier-gold">GOLD</span>
           </div>
@@ -209,7 +209,7 @@ function goBack() {
 
         <div class="promo-card promo-plus" @click="showPlus = true">
           <div class="promo-brand">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 6 8 6 13.5C6 17.6 9 21 12 21C15 21 18 17.6 18 13.5C18 10 15.5 8 15.5 8C15.5 8 15 12 13 12C13 12 14 7 12 2Z" fill="#f2385a"/></svg>
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 6 8 6 13.5C6 17.6 9 21 12 21C15 21 18 17.6 18 13.5C18 10 15.5 8 15.5 8C15.5 8 15 12 13 12C13 12 14 7 12 2Z" fill="#f2385a"/></svg>
             <span class="promo-name">tinder</span>
             <span class="promo-tier promo-tier-plus">+</span>
           </div>
@@ -261,6 +261,16 @@ function goBack() {
       <section class="sec">
         <div class="sec-label">发现设置</div>
 
+        <!-- 解锁更多偏好设置 -->
+        <div class="unlock-card" style="margin-bottom: 12px;">
+          <h3 class="unlock-title">解锁更多<br/>偏好设置</h3>
+          <p class="unlock-desc">想要更多独特体验？设置高级偏好，查看对你口味的个人资料，但又不会错过其他的有缘人。</p>
+          <div class="unlock-bottom">
+            <div class="unlock-avatars">👤👤👤👤</div>
+            <button class="unlock-btn press">解锁</button>
+          </div>
+        </div>
+
         <div class="card">
           <div class="row-label">位置</div>
           <div class="row-location">
@@ -302,18 +312,6 @@ function goBack() {
           <div class="row-between" style="margin-top: 12px;">
             <span class="row-desc">当我将可看的个人资料浏览完毕后向我显示略微超出偏好范围的用户。</span>
             <label class="toggle"><input v-model="showBeyondAge" type="checkbox" /><span class="toggle-slider"></span></label>
-          </div>
-        </div>
-      </section>
-
-      <!-- 解锁更多偏好设置 -->
-      <section class="sec">
-        <div class="unlock-card">
-          <h3 class="unlock-title">解锁更多<br/>偏好设置</h3>
-          <p class="unlock-desc">想要更多独特体验？设置高级偏好，查看对你口味的个人资料，但又不会错过其他的有缘人。</p>
-          <div class="unlock-bottom">
-            <div class="unlock-avatars">👤👤👤👤</div>
-            <button class="unlock-btn press">解锁</button>
           </div>
         </div>
       </section>
@@ -688,28 +686,28 @@ function goBack() {
   height: 52px; background: #fff; border-bottom: 1px solid #eee;
   display: flex; align-items: center; justify-content: space-between; padding: 0 16px;
 }
-.back { width: 32px; height: 32px; font-size: 22px; color: #111; }
-.top-title { font-size: 16px; font-weight: 600; color: #111; }
+.back { width: 32px; height: 32px; font-size: 22px; color: #fe3c72; }
+.top-title { font-size: 16px; font-weight: 600; color: #111; margin-right: 250px; }
 
 .main { padding: 0 16px 24px; }
 
 /* Promo */
-.promo-section { padding: 16px 0; display: flex; flex-direction: column; gap: 10px; }
-.promo-card { background: #fff; border-radius: 14px; padding: 16px; text-align: center; }
+.promo-section { padding: 16px 0; display: flex; flex-direction: column; gap: 6px; }
+.promo-card { background: #fff; border-radius: 14px; padding: 8px; text-align: center; }
 .promo-platinum { background: #fff; }
 .promo-gold { background: #fff; }
 .promo-plus { background: #fff; }
 .promo-brand { display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 8px; }
-.promo-name { font-size: 18px; font-weight: 700; font-style: italic; color: #111; }
+.promo-name { font-size: 30px; font-weight: 800; font-style: normal; color: #111; font-family: inherit; }
 .promo-tier { font-size: 9px; font-weight: 800; padding: 2px 5px; border-radius: 3px; letter-spacing: 0.5px; }
-.promo-tier-plat { color: #333; background: #e0e0e0; }
+.promo-tier-plat { color: #ffffffff; background: #141414ff; }
 .promo-tier-gold { color: #b8860b; background: rgba(184,134,11,0.12); }
-.promo-tier-plus { color: #f2385a; font-size: 14px; font-weight: 300; background: none; }
+.promo-tier-plus { color: #f2385a; font-size: 25px; font-weight: 300; background: none; }
 .promo-desc { font-size: 13px; color: #666; line-height: 1.5; margin: 0; }
 
 /* Quick Grid */
 .quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 8px 0 16px; }
-.feature-card { background: #fff; border-radius: 24px; padding: 20px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1.4 / 1; cursor: pointer; transition: transform 0.1s ease; }
+.feature-card { background: #fff; border-radius: 24px; padding: 12px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1.7 / 1; cursor: pointer; transition: transform 0.1s ease; }
 .feature-card:active { transform: scale(0.97); }
 .fc-icon-circle { width: 48px; height: 48px; border-radius: 50%; border: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
 .fc-label { font-size: 15px; font-weight: 600; text-align: center; letter-spacing: 0.5px; }

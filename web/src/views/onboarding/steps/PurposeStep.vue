@@ -52,7 +52,7 @@ function toggle(v: string) {
 
 <style scoped>
 .subtitle {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text-secondary);
   margin: 0 0 24px;
   line-height: 1.6;
@@ -61,21 +61,21 @@ function toggle(v: string) {
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 5px;
 }
 
 .tile {
-  aspect-ratio: 1 / 1.1;
+  aspect-ratio: 1 / 1.3;
   border: 1px solid #e8e8e8;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  background: #fafafa;
+  gap: 6px;
+  background: rgba(166, 162, 162, 0.16);
   transition: all 0.2s;
-  padding: 12px 6px;
+  padding: 22px 3px;
 }
 
 .tile.active {
@@ -85,16 +85,16 @@ function toggle(v: string) {
 }
 
 .emoji {
-  font-size: 36px;
+  font-size: 45px;
   line-height: 1;
 }
 
 .label {
-  font-size: 12px;
+  font-size: 16px;
   color: var(--text-primary);
-  font-weight: 500;
+  font-weight: 400;
   text-align: center;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .tile.active .label {

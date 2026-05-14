@@ -45,7 +45,7 @@ function goldTouchEnd(e: TouchEvent) {
     <div class="gold-page">
       <header class="gold-header">
         <button class="gold-close press" @click="emit('close')">✕</button>
-        <div class="gold-brand">🔥 <span class="gold-brand-text">tinder <span class="gold-badge">GOLD</span></span></div>
+        
       </header>
 
       <div class="gold-body" @scroll="onGoldScroll">
@@ -114,7 +114,7 @@ function goldTouchEnd(e: TouchEvent) {
 .gold-badge { background: linear-gradient(135deg, #d4a017, #f5c518); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; font-style: normal; margin-left: 4px; }
 
 .gold-body { flex: 1; overflow-y: auto; padding: 0 24px 24px; }
-.gold-title { font-size: 22px; font-weight: 800; color: #111; margin: 0 0 24px; line-height: 1.4; }
+.gold-title { font-size: 26px; font-weight: 450; color: #111; margin: 40px 0 30px; line-height: 1.5; }
 .gold-subtitle { font-size: 14px; color: #666; margin: 0 0 16px; }
 
 .gold-plans-carousel { overflow: hidden; margin-bottom: 12px; }
@@ -133,7 +133,7 @@ function goldTouchEnd(e: TouchEvent) {
 .gold-dot.active { background: #111; }
 
 .gold-features { border: 1px solid #eee; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
-.gold-features-title { font-size: 13px; color: #666; text-align: center; margin-bottom: 16px; border: 1px solid #eee; border-radius: 8px; padding: 6px 14px; display: inline-block; }
+.gold-features-title { font-size: 13px; color: #666; text-align: center; margin: 0 auto 16px; border: 1px solid #eee; border-radius: 8px; padding: 6px 14px; display: block; width: fit-content; }
 .gf-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
 .gf-check { color: #111; font-size: 16px; margin-top: 2px; font-weight: 700; }
 .gf-content { flex: 1; }

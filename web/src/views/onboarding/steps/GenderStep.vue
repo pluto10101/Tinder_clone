@@ -44,6 +44,9 @@ const showGender = computed({
     <a href="#" class="info-link" @click.prevent>了解 Tinder 信息使用详情</a>
 
     <div class="bottom-check">
+      <!-- 仅在这里添加了一行灰色横线 -->
+      <div class="divider"></div>
+
       <label class="check-row">
         <input v-model="showGender" type="checkbox" class="checkbox" />
         <span>在个人资料中显示性别</span>
@@ -105,6 +108,14 @@ const showGender = computed({
   bottom: 92px;
   padding: 0 24px;
   text-align: center;
+}
+
+/* 新增的灰色线样式 */
+.divider {
+  height: 3px;
+  background-color: rgba(11, 10, 10, 0.16); /* 灰色线 */
+  margin-bottom: 20px;       /* 与下方文字的间距 */
+  width: 100%;
 }
 
 .check-row {

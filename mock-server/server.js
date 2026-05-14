@@ -418,6 +418,19 @@ app.put('/notifications/read-all', (req, res) => {
   ok(res, {});
 });
 
+// ---------------- Frontend Static (production) ----------------
+const FRONTEND_DIR = path.join(__dirname, '..', 'web', 'dist');
+if (fs.existsSync(FRONTEND_DIR)) {
+  app.use(express.static(FRONTEND_DIR));
+  app.get('*', (req, res, next) => {
+    // 只处理非 API 请求
+    if (req.path.startsWith('/auth') || req.path.startsWith('/profile') || req.path.startsWith('/discover') || req.path.startsWith('/matches') || req.path.startsWith('/explore') || req.path.startsWith('/notifications') || req.path.startsWith('/uploads')) {
+      return next();
+    }
+    res.sendFile(path.join(FRONTEND_DIR, 'index.html'));
+  });
+}
+
 // ---------------- 404 & Error ----------------
 app.use((req, res) => fail(res, 404, `Not Found: ${req.method} ${req.path}`));
 

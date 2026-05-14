@@ -226,7 +226,7 @@ function goBack() { router.back(); }
           </div>
           <p class="ip-desc">兴趣功能可以让你轻而易举找到志趣相投的知己。在个人资料中添加 0-10 个兴趣，让自己找到一拍即合的伙伴。</p>
           <div class="ip-search">
-            <span class="ip-search-icon">🔍</span>
+            <svg class="ip-search-icon-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M446.112323 177.545051c137.567677 0.219798 252.612525 104.59798 266.162424 241.493333 13.562828 136.895354-78.778182 261.818182-213.617777 289.008485-134.852525 27.203232-268.386263-52.156768-308.945455-183.608889s25.018182-272.252121 151.738182-325.779394A267.235556 267.235556 0 0 1 446.112323 177.545051m0-62.060607c-182.794343 0-330.989899 148.195556-330.989899 330.989899s148.195556 330.989899 330.989899 330.989899 330.989899-148.195556 330.989899-330.989899-148.195556-330.989899-330.989899-330.989899z m431.321212 793.341415a30.849293 30.849293 0 0 1-21.94101-9.102223l-157.220202-157.220202c-11.752727-12.179394-11.584646-31.534545 0.37495-43.50707 11.972525-11.972525 31.327677-12.140606 43.494141-0.37495l157.220202 157.220202a31.036768 31.036768 0 0 1 6.723232 33.810101 31.004444 31.004444 0 0 1-28.651313 19.174142z m0 0"/></svg>
             <input v-model="interestSearch" class="ip-search-input" placeholder="搜索" />
           </div>
         </header>
@@ -289,7 +289,7 @@ function goBack() { router.back(); }
 .main { padding: 12px 16px 24px; }
 .sec { margin-bottom: 12px; }
 .card { background: #fff; border-radius: 14px; padding: 16px; }
-.sec-label-inner { font-size: 13px; color: #999; margin-bottom: 10px; }
+.sec-label-inner { font-size: 30px; color: #999; margin-bottom: 25px; }
 
 /* Block Tabs */
 .block-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -346,30 +346,31 @@ function goBack() { router.back(); }
 .ip-header { padding: 20px 20px 0; }
 .ip-close { width: 32px; height: 32px; font-size: 20px; color: #111; margin-bottom: 12px; }
 .ip-title-row { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
-.ip-title { font-size: 28px; font-weight: 800; color: #111; margin: 0; }
+.ip-title { font-size: 28px; font-weight: 500; color: #111; margin: 0; }
 .ip-count { font-size: 16px; font-weight: 600; color: #999; }
 .ip-desc { font-size: 14px; color: #666; line-height: 1.6; margin: 0 0 16px; }
 .ip-search { display: flex; align-items: center; gap: 8px; padding: 12px 14px; background: #f5f5f5; border-radius: 10px; margin-bottom: 16px; }
 .ip-search-icon { font-size: 14px; opacity: 0.5; }
+.ip-search-icon-svg { width: 16px; height: 16px; fill: #999; flex-shrink: 0; }
 .ip-search-input { flex: 1; border: 0; background: transparent; font-size: 14px; color: #111; outline: none; }
 .ip-search-input::placeholder { color: #999; }
 .ip-body { flex: 1; overflow-y: auto; padding: 0 20px 32px; }
 .ip-tags { display: flex; flex-wrap: wrap; gap: 10px; }
-.ip-tag { padding: 10px 16px; border-radius: 9999px; border: 1.5px solid #ddd; font-size: 14px; color: #333; background: #fff; cursor: pointer; transition: all 0.15s; }
+.ip-tag { padding: 5px 15px; border-radius: 9999px; border: 1.5px solid #ddd; font-size: 14px; color: #333; background: #fff; cursor: pointer; transition: all 0.15s; }
 .ip-tag-selected { border-color: #111; background: #111; color: #fff; }
 
 /* 半弹窗 */
 .hs-mask { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.4); display: flex; align-items: flex-end; justify-content: center; }
-.hs-sheet { width: 100%; max-width: 480px; max-height: 55vh; background: #fff; border-radius: 24px 24px 0 0; display: flex; flex-direction: column; transition: max-height 0.3s ease; animation: sheetUp 0.3s ease; }
+.hs-sheet { width: 100%; max-width: 480px; max-height: 50vh; background: #fff; border-radius: 24px 24px 0 0; display: flex; flex-direction: column; transition: max-height 0.3s ease; animation: sheetUp 0.3s ease; }
 .hs-full { max-height: 90vh; }
 @keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 .hs-handle { width: 36px; height: 4px; border-radius: 2px; background: #ccc; margin: 10px auto 0; }
 .hs-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 12px; }
-.hs-title { font-size: 20px; font-weight: 800; color: #111; margin: 0; }
-.hs-done-btn { padding: 8px 16px; border-radius: 9999px; background: #111; color: #fff; font-size: 13px; font-weight: 600; }
+.hs-title { font-size: 20px; font-weight: 500; color: #111; margin: 0; }
+.hs-done-btn { padding: 8px 16px; border-radius: 9999px; background: #f0f0f0; color: #111; font-size: 13px; font-weight: 600; }
 .hs-body { flex: 1; overflow-y: auto; padding: 0 20px 24px; }
 .hs-tags { display: flex; flex-wrap: wrap; gap: 10px; }
-.hs-tag { padding: 10px 16px; border-radius: 9999px; border: 1.5px solid #ddd; font-size: 14px; color: #333; background: #fff; cursor: pointer; transition: all 0.15s; }
+.hs-tag { padding: 8px 12px; border-radius: 9999px; border: 1.5px solid #ddd; font-size: 14px; color: #333; background: #fff; cursor: pointer; transition: all 0.15s; }
 .hs-tag-selected { border-color: #111; background: #111; color: #fff; }
 
 /* Transitions */

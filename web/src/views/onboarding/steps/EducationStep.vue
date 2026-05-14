@@ -39,14 +39,14 @@ function select(v: string) {
 
 <style scoped>
 .subtitle {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text-secondary);
   margin: 0 0 16px;
   line-height: 1.6;
 }
 
 .divider {
-  height: 1px;
+  height: 3px;
   background: #e8e8e8;
   margin-bottom: 16px;
 }
@@ -58,7 +58,7 @@ function select(v: string) {
 }
 
 .tag {
-  padding: 10px 16px;
+  padding: 8px 13px;
   border: 1px solid #d5d5d5;
   border-radius: 9999px;
   font-size: 14px;

@@ -156,7 +156,12 @@ function onMessageClick(msg: typeof messages[0]) {
         <div v-for="msg in messages" :key="msg.id" class="message-item" @click="onMessageClick(msg)">
           <div class="msg-avatar" :class="{ 'msg-blurred': msg.isBlurred }">
             <img v-if="!msg.isTinder" :src="msg.photo" class="msg-img" />
-            <div v-else class="tinder-avatar">🔥</div>
+            <div v-else class="tinder-avatar">
+              <svg class="tinder-flame-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#fff" fill-rule="evenodd" d="M514 924.9l-3.1-0.2c-157-0.4-284.7-128.2-284.7-285.4 0-5.4 0-10.9 0.4-16.3 4.6-159.4 84.2-202.4 93.3-206.8 10-4.9 22.1-4.8 32.3 0.6 10.2 5.4 17.1 15.3 18.8 26.6 0.1 0.6 7.8 46.6 32.2 71.4 1.3-36.1 5-79.3 15-119.1 20.1-79.2 77.4-162.1 146-211.2 10.9-7.9 25.2-8.9 37.3-2.7 12 6.2 19.4 18.4 19.4 31.8 0 61.5 31 103.3 70.3 156.1 44.9 60.5 95.8 128.9 104.3 240.1v0.1c0.2 2.2 1.6 21.5 1.6 29.4 0 156.1-126.3 283.6-282.1 285.3l-1 0.3zM330.8 459.2c-17.4 13.2-58.9 56-62.1 165.8-0.3 5.2-0.3 9.8-0.3 14.4 0 134 109.1 243.1 243.1 243.1h0.6C645.9 882 754.7 773 754.7 639.3c0-4.8-0.9-18.6-1.4-26.3-7.6-99-54.6-162.2-96-218-38.3-51.4-74.4-100-78.4-168.7-56.6 44.3-103 113.6-119.8 179.8-12.4 49.3-14.2 105.7-14.5 143.8l-0.2 26-25.4-5.4c-61.6-13.3-82.5-84.8-88.2-111.3z m258-240.4z"/>
+                <path fill="#fff" fill-rule="evenodd" d="M529.2 831.6c-11 0-20.3-8.5-21.1-19.6-0.8-11.6 7.9-21.8 19.6-22.6 50.9-3.7 94.1-39.2 107.6-88.4 3.1-11.3 14.8-17.9 26-14.8 11.3 3.1 17.9 14.7 14.8 26-18.2 66.5-76.6 114.4-145.3 119.4h-1.6z"/>
+              </svg>
+            </div>
           </div>
           <div class="msg-content">
             <div class="msg-name-row">
@@ -179,7 +184,7 @@ function onMessageClick(msg: typeof messages[0]) {
           <h2 class="safety-title">安全工具包</h2>
           <div class="safety-list">
             <div class="safety-item" @click="showSafetySheet = false; showReportSheet = true;">
-              <span class="safety-icon">🚩</span>
+              <span class="safety-icon"><svg class="safety-svg-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#E8E8E8"/><path d="M438.4 153.6l-17.6 3.2c-97.6 22.4-168-3.2-203.2-22.4V496c49.6 46.4 144 51.2 289.6 17.6 137.6-32 283.2 17.6 337.6 40h1.6V164.8c-179.2-62.4-291.2-36.8-408-11.2z" fill="#F2385A"/><path d="M865.6 139.2C672 68.8 548.8 96 430.4 123.2l-17.6 3.2c-90.208 19.552-153.568-4.704-183.44-20.976 16.768-9.856 28.144-27.872 28.144-48.72C257.504 25.392 232.112 0 200.8 0S144.096 25.392 144.096 56.704c0 25.424 16.848 46.688 39.904 53.872V1024h32V536c60.8 38.4 160 40 297.6 8 158.4-36.8 337.6 46.4 339.2 46.4l22.4 11.2V142.4l-9.6-3.2z m-19.2 414.4h-1.6c-54.4-22.4-200-72-337.6-40-145.6 33.6-240 28.8-289.6-17.6V134.4c35.2 19.2 105.6 44.8 203.2 22.4l17.6-3.2c116.8-25.6 228.8-51.2 408 11.2v388.8z" fill=""/><path d="M200.8 56.704m-23.872 0a23.872 23.872 0 1 0 47.744 0 23.872 23.872 0 1 0-47.744 0Z" fill="#F2385A"/></svg></span>
               <div class="safety-text">
                 <strong>举报</strong>
                 <p>举报已取消配对的对象，或举报在欧盟地区被视为违法的内容。</p>
@@ -685,7 +690,8 @@ function onMessageClick(msg: typeof messages[0]) {
 .msg-avatar { width: 56px; height: 56px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
 .msg-blurred { filter: blur(4px); opacity: 0.7; }
 .msg-img { width: 100%; height: 100%; object-fit: cover; }
-.tinder-avatar { width: 100%; height: 100%; background: linear-gradient(135deg, #FD297B, #FF655B); display: flex; align-items: center; justify-content: center; font-size: 24px; border-radius: 50%; }
+.tinder-avatar { width: 100%; height: 100%; background: linear-gradient(135deg, #FD297B, #FF655B); display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+.tinder-flame-svg { width: 38px; height: 38px; }
 .msg-content { flex: 1; min-width: 0; }
 .msg-name-row { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
 .msg-name { font-size: 15px; font-weight: 600; color: #111; }
@@ -695,17 +701,18 @@ function onMessageClick(msg: typeof messages[0]) {
 .msg-badge { padding: 4px 10px; border-radius: 9999px; background: #111; color: #fff; font-size: 11px; font-weight: 600; white-space: nowrap; }
 
 /* 安全工具包 */
-.sheet-mask { position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,0.4); display: flex; align-items: flex-end; justify-content: center; }
-.safety-sheet { width: 100%; max-width: 480px; background: #fff; border-radius: 24px 24px 0 0; padding: 0 24px 32px; animation: sheetUp 0.3s ease; }
+.sheet-mask { position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,0.85); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); display: flex; align-items: flex-end; justify-content: center; }
+.safety-sheet { width: 100%; max-width: 480px; background: #fff; border-radius: 24px 24px 0 0; padding: 0 24px 32px; animation: sheetUp 0.3s ease; height: 45vh; overflow-y: auto; }
 @keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 .sheet-handle { width: 36px; height: 4px; border-radius: 2px; background: #ccc; margin: 10px auto 20px; }
 .safety-title { font-size: 20px; font-weight: 800; color: #111; margin: 0 0 20px; }
 .safety-list { display: flex; flex-direction: column; gap: 20px; }
 .safety-item { display: flex; gap: 14px; align-items: flex-start; }
-.safety-icon { font-size: 24px; margin-top: 2px; }
+.safety-icon { font-size: 24px; margin-top: 2px; display: flex; align-items: center; }
+.safety-svg-icon { width: 32px; height: 32px; }
 .safety-text { flex: 1; }
-.safety-text strong { font-size: 15px; color: #111; display: block; margin-bottom: 4px; }
-.safety-text p { font-size: 13px; color: #666; margin: 0; line-height: 1.5; }
+.safety-text strong { font-size: 17px; color: #111; display: block; margin-bottom: 4px; }
+.safety-text p { font-size: 15px; color: #666; margin: 0; line-height: 1.5; }
 
 /* 老友记页面 */
 .friends-page { position: fixed; inset: 0; z-index: 100; background: #f3f4f8; display: flex; flex-direction: column; }

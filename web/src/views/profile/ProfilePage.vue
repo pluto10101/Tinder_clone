@@ -283,7 +283,7 @@ async function handleLogout() {
         <div v-show="carouselIndex === 0" class="gold-card">
           <div class="gc-header">
             <div class="gc-logo-box">
-              <svg width="22" height="26" viewBox="0 0 24 24" fill="#EDB92E">
+              <svg width="35" height="35" viewBox="0 0 24 24" fill="#EDB92E">
                 <path d="M16.48 10.97c-.36-.45-.75-.87-1.16-1.28-1.51-1.49-2.07-3.12-1.74-5.06.07-.38-.28-.7-.6-.5-.59.36-1.12.82-1.57 1.37-2.31 2.82-2.18 6.46-.22 9.4 0 .01 0 .02.01.03a4.01 4.01 0 0 1-2.31-3.64c-.02-.85.18-1.67.55-2.39.2-.38-.15-.79-.53-.66-.82.26-1.54.76-2.08 1.45-1.53 1.95-1.8 4.67-.7 6.78 1.35 2.6 4.3 4.14 7.21 3.86 3.4-.33 5.92-3.4 5.4-6.8-.18-1.14-.65-2.18-1.26-3.06z"/>
               </svg>
               <span class="gc-logo-text">tinder</span>
@@ -432,11 +432,13 @@ async function handleLogout() {
             <textarea v-model="bioText" class="bio-textarea" :maxlength="bioMaxLen" placeholder=""></textarea>
             <span class="bio-counter">{{ bioText.length }}/{{ bioMaxLen }}</span>
           </div>
-          <div class="bio-tip">
-            <span class="bio-tip-icon">✨</span>
-            <span class="bio-tip-label">个人介绍提示</span>
+          <div class="bio-tip-wrap">
+            <div class="bio-tip">
+              <span class="bio-tip-icon">✨</span>
+              <span class="bio-tip-label">个人介绍提示</span>
+            </div>
+            <p class="bio-tip-text">简短凝练的个人介绍才是好的。分享下你的兴趣、价值取向及交友期待。</p>
           </div>
-          <p class="bio-tip-text">简短凝练的个人介绍才是好的。分享下你的兴趣、价值取向及交友期待。</p>
         </div>
       </div>
     </Transition>
@@ -535,7 +537,7 @@ async function handleLogout() {
 }
 
 .scroll-area {
-  padding: 16px 16px 8px;
+  padding: 8px 12px 4px;
 }
 
 /* ===== Header ===== */
@@ -552,8 +554,8 @@ async function handleLogout() {
 }
 
 .avatar-wrap {
-  width: 100px;
-  height: 100px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   overflow: hidden;
   flex: none;
@@ -854,7 +856,7 @@ async function handleLogout() {
   width: 100%;
   background: linear-gradient(to bottom, #FFF0B5 0%, #FFF9E3 40%, #FFFFFF 100%);
   border-radius: 32px;
-  padding: 26px 24px;
+  padding: 20px 20px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04), 0 2px 10px rgba(0, 0, 0, 0.02);
   box-sizing: border-box;
   border: 1px solid rgba(255, 255, 255, 0.8);
@@ -864,18 +866,18 @@ async function handleLogout() {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 }
 
 .gc-logo-box {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: -3px;
 }
 
 .gc-logo-text {
   font-size: 26px;
-  font-weight: 1000;
+  font-weight: 800;
   color: #252525;
   letter-spacing: -1.5px;
   line-height: 1;
@@ -883,7 +885,7 @@ async function handleLogout() {
 
 .gc-badge-gold {
   background-color: #EDB92E;
-  color: white;
+  color: #111;
   font-size: 10px;
   font-weight: 900;
   padding: 2px 6px;
@@ -911,7 +913,7 @@ async function handleLogout() {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0;
+  padding: 2px 0;
 }
 
 .gc-row-head {
@@ -1040,7 +1042,7 @@ async function handleLogout() {
 
 /* Photos Modal */
 .photos-modal { position: fixed; inset: 0; z-index: 100; background: #fff; display: flex; flex-direction: column; }
-.pm-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #f0f0f0; }
+.pm-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #353333ff; }
 .pm-close { width: 32px; height: 32px; font-size: 20px; color: #111; background: none; border: none; }
 .pm-title { font-size: 18px; font-weight: 700; color: #111; margin: 0; }
 .pm-body { flex: 1; padding: 20px; overflow-y: auto; }
@@ -1074,9 +1076,10 @@ async function handleLogout() {
 .bio-placeholder { position: absolute; top: 16px; left: 16px; right: 60px; font-size: 15px; color: #999; line-height: 1.6; pointer-events: none; }
 .bio-textarea { width: 100%; min-height: 80px; border: none; outline: none; font-size: 15px; color: #111; line-height: 1.6; resize: none; background: transparent; position: relative; z-index: 1; }
 .bio-counter { position: absolute; bottom: 12px; right: 16px; font-size: 13px; color: #999; }
-.bio-tip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 9999px; background: #f5f5f5; margin-bottom: 10px; }
+.bio-tip-wrap { position: relative; border: 1.5px solid #111; border-radius: 12px; padding: 32px 16px 16px; }
+.bio-tip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 9999px; background: #111; position: absolute; top: -16px; left: 12px; z-index: 2; }
 .bio-tip-icon { font-size: 14px; }
-.bio-tip-label { font-size: 13px; font-weight: 600; color: #111; }
+.bio-tip-label { font-size: 13px; font-weight: 600; color: #fff; }
 .bio-tip-text { font-size: 14px; color: #666; line-height: 1.6; margin: 0; }
 
 /* About Me Modal */

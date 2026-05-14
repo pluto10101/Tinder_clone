@@ -284,12 +284,24 @@ function closeFailDialog() { showFailDialog.value = false; selectedCard.value = 
     <header class="page-header"><h1 class="page-title">探索</h1></header>
     <main class="main">
       <div v-for="(section, si) in sections" :key="si" class="section">
+        <!-- 第一张 featured 卡片放在标题上方 -->
+        <div v-if="section.cards[0]?.featured" class="card-grid card-grid-top">
+          <div class="explore-card card-featured" :style="{ '--card-color': section.cards[0].color }" @click="onCardClick(section.cards[0])">
+            <img :src="section.cards[0].cover" class="card-cover" />
+            <div class="card-overlay"></div>
+            <span v-if="section.cards[0].users" class="card-badge"><span class="badge-icon">👤</span> {{ section.cards[0].users }}</span>
+            <div class="card-bottom">
+              <span class="card-name">{{ section.cards[0].name }}</span>
+              <button v-if="section.cards[0].cta" class="card-cta">{{ section.cards[0].cta }}</button>
+            </div>
+          </div>
+        </div>
         <div class="section-header">
           <h2 class="section-title">{{ section.title }}</h2>
           <p class="section-subtitle">{{ section.subtitle }}</p>
         </div>
         <div class="card-grid">
-          <div v-for="card in section.cards" :key="card.id" class="explore-card" :class="{ 'card-featured': card.featured }" :style="{ '--card-color': card.color }" @click="onCardClick(card)">
+          <div v-for="card in (section.cards[0]?.featured ? section.cards.slice(1) : section.cards)" :key="card.id" class="explore-card" :class="{ 'card-featured': card.featured }" :style="{ '--card-color': card.color }" @click="onCardClick(card)">
             <img :src="card.cover" class="card-cover" />
             <div class="card-overlay"></div>
             <span v-if="card.users" class="card-badge"><span class="badge-icon">👤</span> {{ card.users }}</span>
@@ -354,7 +366,7 @@ function closeFailDialog() { showFailDialog.value = false; selectedCard.value = 
             <span v-if="swipeViewCard.name === '照片已验证'" class="sv-verified-icon">✓</span>
             <span class="sv-title">{{ swipeViewCard.name }}</span>
           </div>
-          <div class="sv-header-right"><button class="sv-boost press" @click="showSvBoostPage = true"><svg width="18" height="18" viewBox="0 0 24 24" fill="#a644ff"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg></button><button class="sv-more press" @click="showSvSettings = true">•••</button></div>
+          <div class="sv-header-right"><button class="sv-boost press" @click="showSvBoostPage = true"><svg width="18" height="18" viewBox="0 0 24 24" fill="#a644ff"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg></button><button class="sv-more press" @click="showSvSettings = true"><svg class="sv-more-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M841.085552 395.21211c-62.669318 0-113.472378 49.541323-113.472378 110.642936 0 61.093427 50.80306 110.652146 113.472378 110.652146 62.685691 0 113.487727-49.559742 113.487727-110.652146C954.573279 444.75241 903.77022 395.21211 841.085552 395.21211zM500.653069 395.21211c-62.668295 0-113.487727 49.541323-113.487727 110.642936 0 61.093427 50.820456 110.652146 113.487727 110.652146 62.669318 0 113.472378-49.559742 113.472378-110.652146C614.125447 444.75241 563.322387 395.21211 500.653069 395.21211zM182.915471 395.21211c-62.686714 0-113.488751 49.541323-113.488751 110.642936 0 61.093427 50.802036 110.652146 113.488751 110.652146 62.669318 0 113.471354-49.559742 113.471354-110.652146C296.385802 444.75241 245.583766 395.21211 182.915471 395.21211z" fill="#2c2c2c"/></svg></button></div>
         </header>
 
         <div class="sv-card-area">
@@ -530,6 +542,7 @@ function closeFailDialog() { showFailDialog.value = false; selectedCard.value = 
                   <span class="sv-settings-value">{{ svDistance }} 公里</span>
                 </div>
                 <input type="range" class="sv-settings-slider" v-model.number="svDistance" min="1" max="160" :style="{ '--slider-pct': ((svDistance - 1) / 159 * 100) + '%' }" />
+                <hr class="sv-settings-divider" />
                 <p class="sv-settings-hint">此类设置仅适用于{{ swipeViewCard?.name }}功能</p>
               </div>
               <div class="sv-settings-footer">
@@ -648,8 +661,9 @@ function closeFailDialog() { showFailDialog.value = false; selectedCard.value = 
 .section-title { font-size: 16px; font-weight: 700; color: #111; margin: 0 0 2px; }
 .section-subtitle { font-size: 13px; color: #888; margin: 0; }
 .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.explore-card { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 3 / 4; cursor: pointer; }
-.explore-card.card-featured { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+.card-grid-top { margin-bottom: 16px; }
+.explore-card { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 3 / 5; cursor: pointer; }
+.explore-card.card-featured { grid-column: 1 / -1; aspect-ratio: 14.5 / 10; }
 .card-cover { width: 100%; height: 100%; object-fit: cover; display: block; }
 .card-overlay { position: absolute; inset: 0; background: var(--card-color, #333); opacity: 0.55; mix-blend-mode: multiply; }
 .card-badge { position: absolute; top: 10px; right: 10px; display: flex; align-items: center; gap: 3px; padding: 4px 8px; border-radius: 6px; background: rgba(0,0,0,0.5); color: #fff; font-size: 11px; font-weight: 600; backdrop-filter: blur(4px); }
@@ -665,7 +679,7 @@ function closeFailDialog() { showFailDialog.value = false; selectedCard.value = 
 .detail-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #f0f0f0; }
 .detail-close { width: 28px; height: 28px; font-size: 16px; color: #111; }
 .detail-header-title { font-size: 15px; font-weight: 600; color: #111; }
-.detail-cover-wrap { width: 100%; aspect-ratio: 16/9; overflow: hidden; }
+.detail-cover-wrap { width: 100%; aspect-ratio: 16/8; overflow: hidden; }
 .detail-cover { width: 100%; height: 100%; object-fit: cover; }
 .detail-body { padding: 20px 24px 32px; overflow-y: auto; }
 .detail-title { font-size: 24px; font-weight: 800; color: #111; margin: 0 0 8px; }
@@ -679,7 +693,7 @@ function closeFailDialog() { showFailDialog.value = false; selectedCard.value = 
 
 /* Purpose Edit */
 .purpose-page { position: fixed; inset: 0; z-index: 100; background: #fff; display: flex; flex-direction: column; }
-.purpose-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; height: 56px; }
+.purpose-header { display: flex; align-items: center; justify-content: space-between; padding:18px 18px; height: 65px; }
 .purpose-back { font-size: 24px; color: #111; width: 32px; }
 .purpose-header-title { font-size: 15px; font-weight: 600; color: #111; }
 .purpose-cancel { font-size: 14px; color: #666; }
@@ -714,15 +728,16 @@ function closeFailDialog() { showFailDialog.value = false; selectedCard.value = 
 @keyframes slideDown { from { transform: translateY(0); } to { transform: translateY(100%); } }
 
 /* Swipe View */
-.swipe-view { position: fixed; inset: 0; z-index: 100; background: #111; display: flex; flex-direction: column; }
-.sv-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: #111; }
-.sv-close { width: 32px; height: 32px; font-size: 18px; color: #fff; }
+.swipe-view { position: fixed; inset: 0; z-index: 100; background: #fff; display: flex; flex-direction: column; }
+.sv-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: #fff; }
+.sv-close { width: 32px; height: 32px; font-size: 18px; color: #111; }
 .sv-title-wrap { display: flex; align-items: center; gap: 6px; }
 .sv-verified-icon { width: 20px; height: 20px; border-radius: 50%; background: #42a5f5; color: #fff; font-size: 11px; display: flex; align-items: center; justify-content: center; }
-.sv-title { font-size: 15px; font-weight: 600; color: #fff; }
+.sv-title { font-size: 15px; font-weight: 600; color: #111; }
 .sv-header-right { display: flex; align-items: center; gap: 12px; }
 .sv-boost { display: flex; align-items: center; justify-content: center; }
-.sv-more { font-size: 16px; color: #fff; letter-spacing: 2px; }
+.sv-more { font-size: 16px; color: #111; letter-spacing: 2px; display: flex; align-items: center; }
+.sv-more-icon { width: 22px; height: 22px; }
 
 .sv-card-area { flex: 1; position: relative; margin: 0 8px; border-radius: 12px; overflow: hidden; }
 .sv-card { position: absolute; inset: 0; border-radius: 12px; overflow: hidden; }
@@ -822,8 +837,9 @@ function closeFailDialog() { showFailDialog.value = false; selectedCard.value = 
 .sv-settings-value { font-size: 14px; color: #111; font-weight: 600; }
 .sv-settings-slider { width: 100%; height: 22px; appearance: none; background: transparent; outline: none; margin-bottom: 16px; position: relative; }
 .sv-settings-slider::-webkit-slider-runnable-track { height: 4px; background: linear-gradient(90deg, #FD297B 0%, #FD297B var(--slider-pct, 50%), #eee var(--slider-pct, 50%), #eee 100%); border-radius: 2px; }
-.sv-settings-slider::-webkit-slider-thumb { appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 3px solid #FD297B; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); margin-top: -9px; }
-.sv-settings-hint { font-size: 12px; color: #999; text-align: center; margin: 0; }
+.sv-settings-slider::-webkit-slider-thumb { appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #FD297B; border: none; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); margin-top: -9px; }
+.sv-settings-hint { font-size: 12px; color: #999; text-align: center; margin: 12px 0 0; }
+.sv-settings-divider { border: none; border-top: 1px solid #eee; margin: 16px 0 0; }
 .sv-settings-footer { padding: 16px 20px 32px; display: flex; flex-direction: column; gap: 12px; }
 .sv-settings-update { width: 100%; height: 52px; border-radius: 9999px; background: #111; color: #fff; font-size: 16px; font-weight: 600; }
 .sv-settings-leave { font-size: 15px; font-weight: 600; color: #111; text-align: center; padding: 8px; }

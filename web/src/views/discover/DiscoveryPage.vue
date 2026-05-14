@@ -360,7 +360,13 @@ function gdTouchEnd(e: TouchEvent) {
     </div>
     <!-- 未满10赞：绿色提示条 -->
     <div v-else-if="likesNeeded > 0" class="top-banner">
-      <div class="banner-icon">💚</div>
+      <div class="banner-icon-container">
+        <div class="banner-heart-halo">
+          <svg viewBox="0 0 24 24" class="banner-heart-svg">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+        </div>
+      </div>
       <div class="banner-text">
         <div class="banner-title">了解喜欢的类型</div>
         <div class="banner-sub">再点 {{ likesNeeded }} 个赞，了解详情</div>
@@ -447,8 +453,8 @@ function gdTouchEnd(e: TouchEvent) {
             </button>
           </div>
           <div v-if="isFullMode" class="info-meta">
-            <span v-if="currentCard.distance">📍 距离 {{ currentCard.distance }} 公里</span>
-            <span v-if="currentCard.school">🎓 {{ currentCard.school }}</span>
+            <span v-if="currentCard.distance"><svg class="meta-location-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M512 0C278.8 0 89 189.7 89 423c0 228.6 391.5 580.5 408.1 595.4 4.2 3.8 9.5 5.6 14.8 5.6s10.6-1.9 14.8-5.6C543.5 1003.5 935 651.6 935 423 935 189.7 745.2 0 512 0z m0 971.5C440.3 904.8 133.6 608.4 133.6 423c0-208.7 169.8-378.4 378.4-378.4S890.4 214.3 890.4 423c0 185.3-306.7 481.8-378.4 548.5z"/><path d="M512 200.3c-122.7 0-222.6 99.9-222.6 222.6S389.3 645.6 512 645.6 734.6 545.7 734.6 423 634.7 200.3 512 200.3z m0 400.7c-98.2 0-178.1-79.9-178.1-178.1s79.9-178 178.1-178S690.1 324.8 690.1 423 610.2 601 512 601z"/></svg> 距离 {{ currentCard.distance }} 公里</span>
+            <span v-if="currentCard.school"><svg class="meta-school-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M874 677.3V361.5c0-16.9 13.7-30.5 30.5-30.5s30.5 13.7 30.5 30.5v315.7M505 835.3c-155.9 0-278-82.1-278-187 0-16.9 13.7-30.5 30.5-30.5s30.5 13.7 30.5 30.5c0 68.3 99.3 125.9 216.9 125.9s216.9-57.7 216.9-125.9c0-16.9 13.7-30.5 30.5-30.5 16.9 0 30.5 13.7 30.5 30.5 0.2 104.8-121.9 187-277.8 187z"/><path d="M257.6 694.1c-16.9 0-30.5-13.7-30.5-30.5V431.3c0-16.9 13.7-30.5 30.5-30.5s30.5 13.7 30.5 30.5v232.2c0 17-13.6 30.6-30.5 30.6zM752.5 694.1c-16.9 0-30.5-13.7-30.5-30.5V431.3c0-16.9 13.7-30.5 30.5-30.5 16.9 0 30.5 13.7 30.5 30.5v232.2c0 17-13.7 30.6-30.5 30.6z"/><path d="M906.7 827.1c-56 0-101.7-45.6-101.7-101.6s45.6-101.7 101.7-101.7c56 0 101.6 45.6 101.6 101.7s-45.5 101.6-101.6 101.6z m0-142.2c-22.4 0-40.6 18.2-40.6 40.6 0 22.4 18.2 40.6 40.6 40.6 22.4 0 40.6-18.2 40.6-40.6 0-22.4-18.2-40.6-40.6-40.6z"/><path d="M505 550.6c-3.8 0-7.6-0.7-11.2-2.1L51.1 373.7c-11.7-4.6-19.4-16-19.3-28.6 0.1-12.6 7.9-23.9 19.7-28.3l434.8-164.9c6.8-2.6 14.4-2.6 21.3-0.1l450.7 164.9c11.9 4.4 19.9 15.6 20 28.3s-7.5 24.1-19.3 28.8L516.2 548.5a30.9 30.9 0 0 1-11.2 2.1zM146.9 345.9L505 487.3l356.8-140.9L497.3 213 146.9 345.9z"/></svg> {{ currentCard.school }}</span>
           </div>
           <!-- 占星术模式：星座匹配信息 -->
           <div v-if="activeNavTab === 'astro' && astroSetup" class="astro-match-info">
@@ -934,8 +940,10 @@ function gdTouchEnd(e: TouchEvent) {
           <template v-if="boostTab === 'boost'">
             <div class="bp-desc-card">
               <div class="bp-desc-left">
-                <div class="bp-desc-icon">⚡</div>
-                <strong>Boost</strong>
+                <div class="bp-desc-title-row">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="#7b2ff7"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+                  <strong>Boost</strong>
+                </div>
                 <p>成为当地的最佳个人资料，30 分钟内帮你收获更多点赞。</p>
               </div>
               <img src="https://picsum.photos/seed/boostav/60/60" class="bp-desc-avatar" />
@@ -943,6 +951,7 @@ function gdTouchEnd(e: TouchEvent) {
             <div class="bp-plans">
               <div class="bp-plan" :class="{ 'bp-plan-active': boostPlanIndex === 0 }" @click="boostPlanIndex = 0">
                 <div class="bp-plan-top"><span class="bp-plan-best">最划算</span><span class="bp-plan-save">节省 40%</span></div>
+                <hr class="bp-plans-divider" />
                 <div class="bp-plan-row"><span class="bp-plan-count">20 Boost</span><span class="bp-plan-price">US$1.99/个</span></div>
               </div>
               <div class="bp-plan" :class="{ 'bp-plan-active': boostPlanIndex === 1 }" @click="boostPlanIndex = 1">
@@ -1094,9 +1103,9 @@ function gdTouchEnd(e: TouchEvent) {
       <div v-if="showFriendsPage" class="fp-page">
         <header class="fp-nav">
           <button class="fp-back press" @click="closeFriendsPage">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            <svg class="fp-back-icon" viewBox="0 0 1092 1024" xmlns="http://www.w3.org/2000/svg"><path d="M1057.983297 483.868132H88.896703L519.201758 57.839121A33.983297 33.983297 0 0 0 471.49011 9.677363l-454.836044 450.10989a57.163956 57.163956 0 0 0 0 79.66945l455.061099 472.615385a33.533187 33.533187 0 0 0 23.630769 11.927912 33.083077 33.083077 0 0 0 22.505495-9.227253 33.983297 33.983297 0 0 0 1.125274-47.936703L120.404396 551.384615h937.578901a33.758242 33.758242 0 0 0 0-67.516483z"/></svg>
           </button>
-          <span class="fp-title">《 老友记 》</span>
+          <span class="fp-title">《老友记》</span>
           <button class="fp-settings press" @click="showGroupSettings = true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14,12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
           </button>
@@ -1238,7 +1247,7 @@ function gdTouchEnd(e: TouchEvent) {
 
           <!-- 我想要 -->
           <div v-if="currentCard.dating_purpose && currentCard.dating_purpose.length" class="ud-section">
-            <div class="ud-section-header"><span>🔍</span> 我想要</div>
+            <div class="ud-section-header"><svg class="ud-section-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M446.112323 177.545051c137.567677 0.219798 252.612525 104.59798 266.162424 241.493333 13.562828 136.895354-78.778182 261.818182-213.617777 289.008485-134.852525 27.203232-268.386263-52.156768-308.945455-183.608889s25.018182-272.252121 151.738182-325.779394A267.235556 267.235556 0 0 1 446.112323 177.545051m0-62.060607c-182.794343 0-330.989899 148.195556-330.989899 330.989899s148.195556 330.989899 330.989899 330.989899 330.989899-148.195556 330.989899-330.989899-148.195556-330.989899-330.989899-330.989899z m431.321212 793.341415a30.849293 30.849293 0 0 1-21.94101-9.102223l-157.220202-157.220202c-11.752727-12.179394-11.584646-31.534545 0.37495-43.50707 11.972525-11.972525 31.327677-12.140606 43.494141-0.37495l157.220202 157.220202a31.036768 31.036768 0 0 1 6.723232 33.810101 31.004444 31.004444 0 0 1-28.651313 19.174142z m0 0"/></svg> 我想要</div>
             <div class="ud-purpose">😍 {{ currentCard.dating_purpose.join('、') }}</div>
           </div>
 
@@ -1251,11 +1260,9 @@ function gdTouchEnd(e: TouchEvent) {
           <!-- 关键信息 -->
           <div class="ud-section" v-if="currentCard.distance || currentCard.school || currentCard.job_title || currentCard.city || currentCard.height_cm">
             <div class="ud-section-header"><span>📋</span> 关键信息</div>
-            <div v-if="currentCard.distance" class="ud-info-item">📍 {{ currentCard.distance }}公里以内</div>
-            <div v-if="currentCard.school" class="ud-info-item">🎓 {{ currentCard.school }}</div>
-            <div v-if="currentCard.job_title" class="ud-info-item">💼 {{ currentCard.job_title }}<span v-if="currentCard.company"> · {{ currentCard.company }}</span></div>
-            <div v-if="currentCard.city" class="ud-info-item">🏙️ {{ currentCard.city }}</div>
-            <div v-if="currentCard.height_cm" class="ud-info-item">📏 {{ currentCard.height_cm }} cm</div>
+            <div v-if="currentCard.distance" class="ud-info-item"><svg class="ud-info-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M512 0C278.8 0 89 189.7 89 423c0 228.6 391.5 580.5 408.1 595.4 4.2 3.8 9.5 5.6 14.8 5.6s10.6-1.9 14.8-5.6C543.5 1003.5 935 651.6 935 423 935 189.7 745.2 0 512 0z m0 971.5C440.3 904.8 133.6 608.4 133.6 423c0-208.7 169.8-378.4 378.4-378.4S890.4 214.3 890.4 423c0 185.3-306.7 481.8-378.4 548.5z"/><path d="M512 200.3c-122.7 0-222.6 99.9-222.6 222.6S389.3 645.6 512 645.6 734.6 545.7 734.6 423 634.7 200.3 512 200.3z m0 400.7c-98.2 0-178.1-79.9-178.1-178.1s79.9-178 178.1-178S690.1 324.8 690.1 423 610.2 601 512 601z"/></svg> {{ currentCard.distance }}公里以内</div>
+            <div v-if="currentCard.school" class="ud-info-item"><svg class="ud-info-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M874 677.3V361.5c0-16.9 13.7-30.5 30.5-30.5s30.5 13.7 30.5 30.5v315.7M505 835.3c-155.9 0-278-82.1-278-187 0-16.9 13.7-30.5 30.5-30.5s30.5 13.7 30.5 30.5c0 68.3 99.3 125.9 216.9 125.9s216.9-57.7 216.9-125.9c0-16.9 13.7-30.5 30.5-30.5 16.9 0 30.5 13.7 30.5 30.5 0.2 104.8-121.9 187-277.8 187z"/><path d="M257.6 694.1c-16.9 0-30.5-13.7-30.5-30.5V431.3c0-16.9 13.7-30.5 30.5-30.5s30.5 13.7 30.5 30.5v232.2c0 17-13.6 30.6-30.5 30.6zM752.5 694.1c-16.9 0-30.5-13.7-30.5-30.5V431.3c0-16.9 13.7-30.5 30.5-30.5 16.9 0 30.5 13.7 30.5 30.5v232.2c0 17-13.7 30.6-30.5 30.6z"/><path d="M906.7 827.1c-56 0-101.7-45.6-101.7-101.6s45.6-101.7 101.7-101.7c56 0 101.6 45.6 101.6 101.7s-45.5 101.6-101.6 101.6z m0-142.2c-22.4 0-40.6 18.2-40.6 40.6 0 22.4 18.2 40.6 40.6 40.6 22.4 0 40.6-18.2 40.6-40.6 0-22.4-18.2-40.6-40.6-40.6z"/><path d="M505 550.6c-3.8 0-7.6-0.7-11.2-2.1L51.1 373.7c-11.7-4.6-19.4-16-19.3-28.6 0.1-12.6 7.9-23.9 19.7-28.3l434.8-164.9c6.8-2.6 14.4-2.6 21.3-0.1l450.7 164.9c11.9 4.4 19.9 15.6 20 28.3s-7.5 24.1-19.3 28.8L516.2 548.5a30.9 30.9 0 0 1-11.2 2.1zM146.9 345.9L505 487.3l356.8-140.9L497.3 213 146.9 345.9z"/></svg> {{ currentCard.school }}</div>
+            
           </div>
 
           <!-- 兴趣 -->
@@ -1342,13 +1349,18 @@ function gdTouchEnd(e: TouchEvent) {
 .filter-icon { width: 24px; height: 24px; stroke: #d1d1cf; stroke-width: 2.8; stroke-linecap: round; fill: none; }
 .nav-tabs { display: flex; gap: 5px; flex: 1; overflow-x: auto; }
 .nav-tab {
-  padding: 7px 14px; border-radius: 20px; font-size: 14px; font-weight: 600;
-  color: #9a9a9a; white-space: nowrap; background: transparent;
+  padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: 200;
+  color: #f5ededff; white-space: nowrap; background: transparent;
   border: none; transition: all 0.2s;
 }
-.nav-tab.active { background: rgba(255,255,255,0.15); color: #fff; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.nav-tab.active {
+  background: rgba(24, 22, 22, 0.56);
+  color: #fff;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
 .tab-edit { margin-left: 4px; font-size: 12px; opacity: 0.7; }
-.boost-btn { color: #a644ff; font-size: 20px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
+.boost-btn { color: hsla(271, 97%, 61%, 1.00); font-size: 20px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
 
 /* Top Banner (pre-10) */
 .top-banner {
@@ -1357,9 +1369,21 @@ function gdTouchEnd(e: TouchEvent) {
   background: rgba(255,255,255,0.95); border-radius: 12px; padding: 10px 14px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-.banner-icon { font-size: 24px; }
-.banner-title { font-size: 14px; font-weight: 600; color: #111; }
-.banner-sub { font-size: 12px; color: #666; }
+.banner-icon-container { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; }
+.banner-heart-halo {
+  width: 30px; height: 30px;
+  background-color: rgba(76, 220, 143, 0.12);
+  border: 1.5px solid rgba(76, 220, 143, 0.18);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.banner-heart-svg {
+  width: 14px; height: 14px;
+  fill: #89ca8fff;
+  filter: drop-shadow(0 0 4px rgba(221, 235, 228, 0.3));
+}
+.banner-title { font-size: 15px; font-weight: 600; color: #111; }
+.banner-sub { font-size: 14px; color: #666; }
 
 /* Card Area */
 .card-area { flex: 1; position: relative; overflow: visible; margin: 8px 8px 0 8px; }
@@ -1381,7 +1405,7 @@ function gdTouchEnd(e: TouchEvent) {
   padding: 8px 16px; border: 4px solid; border-radius: 8px; letter-spacing: 4px;
 }
 .stamp-nope { color: #f2385a; border-color: #f2385a; transform: translateX(-50%) rotate(20deg); }
-.stamp-like { color: #4cdc8f; border-color: #4cdc8f; transform: translateX(-50%) rotate(-20deg); }
+.stamp-like { color: #4d9e73ff; border-color: #0cdd6eff; transform: translateX(-50%) rotate(-20deg); }
 .stamp-super { color: #42a5f5; border-color: #42a5f5; transform: translateX(-50%) rotate(0deg); }
 
 .card-info {
@@ -1394,15 +1418,17 @@ function gdTouchEnd(e: TouchEvent) {
     rgba(0,0,0,0) 100%);
   z-index: 5;
 }
-.active-tag { display: inline-flex; align-items: center; justify-content: center; padding: 4px 14px; border-radius: 100px; background-color: #f1fcf6; color: #1a5d4e; font-size: 13px; font-weight: 700; margin-bottom: 8px; white-space: nowrap; }
+.active-tag { display: inline-flex; align-items: center; justify-content: center; padding: 4px 11px; border-radius: 100px; background-color: #f3f3e0ff; color: #1a5d38ff; font-size: 13px; font-weight: 700; margin-bottom: 6px; white-space: nowrap; }
 .info-row { display: flex; align-items: baseline; gap: 6px; }
-.info-name { font-size: 26px; font-weight: 700; color: #fff; }
-.info-age { font-size: 22px; font-weight: 400; color: #fff; }
+.info-name { font-size: 26px; font-weight: 400; color: #fff; }
+.info-age { font-size: 26px; font-weight: 400; color: #fff; }
 .info-verified { width: 18px; height: 18px; border-radius: 50%; background: #42a5f5; color: #fff; font-size: 10px; display: inline-flex; align-items: center; justify-content: center; }
 .info-up-btn { margin-left: auto; width: 38px; height: 38px; border-radius: 50%; background: rgba(10, 10, 10, 0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; display: flex; align-items: center; justify-content: center; pointer-events: auto; border: none; cursor: pointer; box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.15), 0 4px 10px rgba(0, 0, 0, 0.3); transition: transform 0.1s ease; }
 .info-up-btn:active { transform: scale(0.9); }
 .info-arrow-svg { width: 22px; height: 22px; fill: #ffffff; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }
-.info-meta { display: flex; gap: 12px; margin-top: 4px; font-size: 12px; color: rgba(255,255,255,0.75); }
+.info-meta { display: flex; gap: 12px; margin-top: 4px; font-size: 12px; color: rgba(255,255,255,0.75); align-items: center; }
+.meta-location-icon { width: 14px; height: 14px; fill: rgba(255,255,255,0.75); vertical-align: middle; display: inline-block; margin-right: 2px; }
+.meta-school-icon { width: 14px; height: 14px; fill: rgba(255,255,255,0.75); vertical-align: middle; display: inline-block; margin-right: 2px; }
 .info-desc { font-size: 13px; color: rgba(255,255,255,0.85); margin-top: 4px; line-height: 1.4; }
 
 /* Astro match info */
@@ -1721,7 +1747,8 @@ function gdTouchEnd(e: TouchEvent) {
 .boost-page-super .bp-desc-left strong { color: #fff; }
 .bp-desc-left p { font-size: 14px; color: #666; line-height: 1.5; margin: 0; }
 .boost-page-super .bp-desc-left p { color: rgba(255,255,255,0.8); }
-.bp-desc-icon { font-size: 18px; margin-bottom: 4px; }
+.bp-desc-icon { font-size: 18px; margin-bottom: 4px; color: #7b2ff7; }
+.bp-desc-title-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
 .bp-icon-prime { color: #7b2ff7; }
 .bp-icon-super { color: #fff; }
 .bp-desc-avatar { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
@@ -1744,6 +1771,7 @@ function gdTouchEnd(e: TouchEvent) {
 .bp-or { text-align: center; padding: 16px 0; position: relative; }
 .bp-or::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: #eee; }
 .bp-or span { position: relative; background: #fff; padding: 0 12px; font-size: 14px; color: #999; }
+.bp-plans-divider { border: none; border-top: 1px solid #eee; margin: 0; }
 
 /* Gold hint */
 .bp-gold-hint { border: 1px solid #eee; border-radius: 12px; padding: 16px; }
@@ -1840,9 +1868,10 @@ function gdTouchEnd(e: TouchEvent) {
 
 /* Friends Page (老友记) */
 .fp-page { position: fixed; inset: 0; z-index: 100; background: #f3f4f8; display: flex; flex-direction: column; }
-.fp-nav { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: #f3f4f8; }
-.fp-back { color: #1a1a1a; background: none; border: none; }
-.fp-title { font-size: 19px; font-weight: 600; color: #1a1a1a; letter-spacing: 0.5px; }
+.fp-nav { display: flex; align-items: center; padding: 12px 16px; background: #f3f4f8; gap: 12px; }
+.fp-back { color: #1a1a1a; background: none; border: none; display: flex; align-items: center; }
+.fp-back-icon { width: 22px; height: 22px; fill: #37416B; }
+.fp-title { font-size: 19px; font-weight: 450; color: #1a1a1a; letter-spacing: 0.5px; flex: 1; text-align: left; }
 .fp-settings { color: #4f565e; background: none; border: none; }
 .fp-body { flex: 1; padding: 0 20px; overflow-y: auto; }
 .fp-section-header { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 12px; }
@@ -2049,11 +2078,13 @@ function gdTouchEnd(e: TouchEvent) {
 
 .ud-section { padding: 16px 20px; border-bottom: 1px solid #f0f0f0; }
 .ud-section-header { font-size: 13px; color: #888; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.ud-section-icon { width: 16px; height: 16px; fill: #888; flex-shrink: 0; }
 .ud-purpose { font-size: 15px; color: #111; padding: 10px 14px; background: #f8f8f8; border-radius: 10px; }
 .ud-bio { font-size: 14px; color: #333; line-height: 1.6; margin: 0; white-space: pre-line; }
-.ud-info-item { font-size: 14px; color: #333; margin-bottom: 6px; }
+.ud-info-item { font-size: 14px; color: #333; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.ud-info-icon { width: 16px; height: 16px; fill: #555; flex-shrink: 0; }
 .ud-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-.ud-tag { padding: 6px 14px; border-radius: 9999px; border: 1px solid #ddd; font-size: 13px; color: #333; }
+.ud-tag { padding: 6px 14px; border-radius: 9999px; border: 1px solid #ffffffff; font-size: 13px; color: #333; background: #f5f5f5; }
 .ud-block { text-align: center; padding: 16px 20px; font-size: 15px; font-weight: 600; color: #111; cursor: pointer; }
 .ud-report { text-align: center; padding: 0 20px 20px; font-size: 15px; font-weight: 600; color: #f2385a; cursor: pointer; }
 

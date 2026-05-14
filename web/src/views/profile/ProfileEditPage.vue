@@ -253,11 +253,11 @@ function onSheetTouchEnd(e: TouchEvent) {
           <span class="sec-percent">+10%</span>
         </div>
         <div class="input-card prompt-card">
+          <button class="prompt-add press">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#fe3c72"/><path d="M12 7v10M7 12h10" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
           <div class="prompt-header">
             <strong>选择一条提示</strong>
-            <button class="prompt-add press">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#4cdc8f"/><path d="M12 7v10M7 12h10" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
-            </button>
           </div>
           <p class="prompt-sub">回答提示</p>
         </div>
@@ -282,7 +282,7 @@ function onSheetTouchEnd(e: TouchEvent) {
       <section class="sec">
         <div class="sec-title-plain">交往目标</div>
         <div class="input-card row-card" @click="openHalfSheet('我想要')">
-          <span class="row-icon">🎯</span>
+          <span class="row-icon"><svg class="edit-field-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M515.2 224c-307.2 0-492.8 313.6-492.8 313.6s214.4 304 492.8 304 492.8-304 492.8-304S822.4 224 515.2 224zM832 652.8c-102.4 86.4-211.2 140.8-320 140.8s-217.6-51.2-320-140.8c-35.2-32-70.4-64-99.2-99.2-6.4-6.4-9.6-12.8-16-19.2 3.2-6.4 9.6-12.8 12.8-19.2 25.6-35.2 57.6-70.4 92.8-102.4 99.2-89.6 208-144 329.6-144s230.4 54.4 329.6 144c35.2 32 64 67.2 92.8 102.4 3.2 6.4 9.6 12.8 12.8 19.2-3.2 6.4-9.6 12.8-16 19.2C902.4 585.6 870.4 620.8 832 652.8z"/><path d="M512 345.6c-96 0-169.6 76.8-169.6 169.6 0 96 76.8 169.6 169.6 169.6 96 0 169.6-76.8 169.6-169.6C681.6 422.4 604.8 345.6 512 345.6zM512 640c-67.2 0-121.6-54.4-121.6-121.6 0-67.2 54.4-121.6 121.6-121.6 67.2 0 121.6 54.4 121.6 121.6C633.6 582.4 579.2 640 512 640z"/></svg></span>
           <span>我想要</span>
           <span class="row-right">🤔 {{ datingPurpose[0] || '我还在思考' }}</span>
           <span class="arrow">›</span>
@@ -292,7 +292,8 @@ function onSheetTouchEnd(e: TouchEvent) {
       <!-- 身高 -->
       <section class="sec">
         <div class="sec-title-plain">身高</div>
-        <div class="input-card" @click="openHalfSheet('身高')">
+        <div class="input-card row-card" @click="openHalfSheet('身高')">
+          <svg class="edit-field-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M580.266667 226.133333l-55.466667 55.466667 98.133333 98.133333-29.866666 29.866667-98.133334-98.133333-55.466666 55.466666 98.133333 98.133334-29.866667 29.866666-98.133333-98.133333-55.466667 55.466667 98.133334 98.133333-29.866667 29.866667-98.133333-98.133334-55.466667 55.466667 98.133333 98.133333-29.866666 29.866667-98.133334-98.133333-93.866666 93.866666 179.2 179.2 512-512-179.2-179.2-51.2 51.2L704 298.666667l-29.866667 29.866666-93.866666-102.4zM657.066667 85.333333l243.2 243.2L328.533333 900.266667 85.333333 657.066667 657.066667 85.333333z" fill="#444444"/></svg>
           <span class="placeholder-text">{{ heightCm ? heightCm + ' cm' : '添加身高' }}</span>
           <span class="arrow">›</span>
         </div>
@@ -529,10 +530,11 @@ function onSheetTouchEnd(e: TouchEvent) {
   height: 52px; background: #fff; border-bottom: 1px solid #eee;
   display: flex; align-items: center; justify-content: space-between; padding: 0 16px;
 }
-.back { width: 32px; height: 32px; font-size: 22px; color: #111; }
-.top-title { font-size: 16px; font-weight: 600; color: #111; }
+.back { width: 32px; height: 32px; font-size: 22px; color: #fe3c72; }
+.top-title { font-size: 16px; font-weight: 600; color: #111; margin-right: 200px; }
 
 .tab-bar {
+  position: sticky; top: 52px; z-index: 10; background: #fff;
   display: flex; border-bottom: 1px solid #eee;
 }
 .tab {
@@ -586,20 +588,21 @@ function onSheetTouchEnd(e: TouchEvent) {
 .char-count { font-size: 12px; color: #bbb; flex: none; margin-left: 8px; }
 .field-input { flex: 1; border: 0; background: transparent; font-size: 14px; color: #111; }
 .field-input::placeholder { color: #bbb; }
-.placeholder-text { color: #bbb; font-size: 14px; }
+.placeholder-text { color: #bbb; font-size: 14px; flex: 1; }
 .arrow { color: #ccc; font-size: 18px; font-weight: 300; }
 .link-text { color: #f2385a; font-size: 14px; font-weight: 500; }
 .row-right { margin-left: auto; font-size: 13px; color: #666; }
 .row-right-gray { margin-left: auto; font-size: 13px; color: #bbb; }
 .row-between { justify-content: space-between; }
 .row-card { gap: 8px; }
-.row-icon { font-size: 18px; }
+.row-icon { font-size: 18px; display: flex; align-items: center; }
+.edit-field-icon { width: 18px; height: 18px; fill: #444; flex-shrink: 0; }
 
 /* Prompt Card */
-.prompt-card { flex-direction: column; align-items: stretch; }
-.prompt-header { display: flex; align-items: center; justify-content: space-between; }
+.prompt-card { flex-direction: column; align-items: stretch; position: relative; }
+.prompt-header { display: flex; align-items: center; }
 .prompt-header strong { font-size: 14px; color: #111; }
-.prompt-add { width: 28px; height: 28px; }
+.prompt-add { width: 28px; height: 28px; position: absolute; top: -12px; right: -12px; }
 .prompt-sub { font-size: 12px; color: #999; margin: 4px 0 0; }
 
 /* Info Rows */

@@ -7,7 +7,7 @@ const props = defineProps<{ draft: OnboardingDraft }>();
 const emit = defineEmits<{ 'update:draft': [v: OnboardingDraft] }>();
 
 const SLOTS = 6;
-const MAX_SIZE = 10 * 1024 * 1024;
+const MAX_SIZE = 15 * 1024 * 1024;
 
 const photos = computed({
   get: () => props.draft.photos,
@@ -28,7 +28,7 @@ async function onFileChange(i: number, e: Event) {
   input.value = '';
   if (!file) return;
   if (file.size > MAX_SIZE) {
-    errorMsg.value = '图片不能超过 10MB';
+    errorMsg.value = '图片不能超过 15MB';
     return;
   }
   errorMsg.value = '';
@@ -54,7 +54,7 @@ async function removePhoto(id: number) {
 </script>
 
 <template>
-  <div>
+  <div class="photo-onboarding">
     <p class="subtitle">
       上传 2 张照片，开始玩转 Tinder。添加 4 张或更多照片可以让你的个人资料脱颖而出。
     </p>
@@ -62,14 +62,21 @@ async function removePhoto(id: number) {
     <div class="grid">
       <template v-for="i in SLOTS" :key="i">
         <div class="slot" :class="{ filled: photos[i - 1] }">
+          <!-- 已上传照片显示 -->
           <template v-if="photos[i - 1]">
             <img :src="photos[i - 1]!.url" class="photo" />
-            <button class="remove press" @click="removePhoto(photos[i - 1]!.id)">✕</button>
+            <button class="remove-btn press" @click="removePhoto(photos[i - 1]!.id)">✕</button>
           </template>
-          <template v-else>
-            <div v-if="uploading[i - 1]" class="loading">
+
+          <!-- 上传中状态 -->
+          <template v-else-if="uploading[i - 1]">
+            <div class="loading">
               <div class="spinner"></div>
             </div>
+          </template>
+
+          <!-- 空槽位状态 -->
+          <template v-else>
             <input
               :ref="(el) => el && (inputs[i - 1] = el as HTMLInputElement)"
               type="file"
@@ -77,18 +84,21 @@ async function removePhoto(id: number) {
               class="hidden-input"
               @change="onFileChange(i - 1, $event)"
             />
+            <!-- 悬浮在右下角的加号按钮 -->
+            <button
+              class="add-btn press"
+              @click="triggerPick(i - 1)"
+            >
+              <svg width="60" height="60" viewBox="0 0 30 30">
+                <!-- 白色外圈（让加号悬浮的感觉更强） -->
+                <circle cx="15" cy="15" r="14" fill="white" />
+                <!-- 内部圆圈（Tinder 品牌渐变色或纯黑） -->
+                <circle cx="15" cy="15" r="11" fill="#111" />
+                <!-- 白色加号 -->
+                <path d="M15 10v10M10 15h10" stroke="#fff" stroke-width="1" stroke-linecap="round" />
+              </svg>
+            </button>
           </template>
-          <!-- 右下角加号按钮（未填充时显示） -->
-          <button
-            v-if="!photos[i - 1] && !uploading[i - 1]"
-            class="add-btn press"
-            @click="triggerPick(i - 1)"
-          >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="10" r="10" fill="#111" />
-              <path d="M10 5v10M5 10h10" stroke="#fff" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </button>
         </div>
       </template>
     </div>
@@ -98,69 +108,85 @@ async function removePhoto(id: number) {
 </template>
 
 <style scoped>
+.photo-onboarding {
+  padding: 0 4px;
+  /* 如果有全局字体，这里会自动继承 */
+}
+
 .subtitle {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin: 0 0 20px;
-  line-height: 1.6;
+  font-size: 15px;
+  color: #666;
+  margin: 0 0 25px;
+  line-height: 1.5;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 15px; /* 间距稍大，给悬浮按钮留出空间 */
 }
 
 .slot {
-  aspect-ratio: 3 / 4;
-  background: #f5f5f5;
-  border: 2px dashed #ccc;
+  aspect-ratio: 3 / 4.7;
+  background: #edeff3;
+  border: 2px dashed #d0d5dd;
   border-radius: 12px;
   position: relative;
-  overflow: hidden;
+  /* 【关键修改】：允许内容溢出，这样加号才能悬挂在外面 */
+  overflow: visible;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .slot.filled {
-  border-style: solid;
-  border-color: transparent;
+  border: none;
+  background: #f0f0f0;
 }
 
 .photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px;
+  /* 【关键修改】：因为父级不切溢出了，图片自己必须带圆角 */
+  border-radius: 12px;
 }
 
-.remove {
+/* 右上角删除按钮（针对已上传图片） */
+.remove-btn {
   position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 22px;
-  height: 22px;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  font-size: 11px;
+  background: white;
+  border: 1px solid #ddd;
+  color: #666;
+  font-size: 12px;
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 5;
 }
 
+/* 【核心修改】：悬浮右下角加号按钮 */
 .add-btn {
   position: absolute;
-  bottom: -4px;
-  right: -4px;
-  width: 28px;
-  height: 28px;
+  bottom: -10px; /* 负值让它往外飘 */
+  right: -10px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
+  z-index: 10;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .loading {
@@ -170,12 +196,12 @@ async function removePhoto(id: number) {
 }
 
 .spinner {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border: 2px solid #ddd;
-  border-top-color: #111;
+  border-top-color: #fe3c72; /* Tinder 主题色 */
   border-radius: 50%;
-  animation: spin 0.6s linear infinite;
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
@@ -187,9 +213,15 @@ async function removePhoto(id: number) {
 }
 
 .error {
-  color: #f2385a;
+  color: #ff4458;
   font-size: 13px;
-  margin-top: 12px;
+  margin-top: 15px;
   text-align: center;
+}
+
+/* 统一的点击缩放反馈 */
+.press:active {
+  transform: scale(0.92);
+  transition: transform 0.1s;
 }
 </style>

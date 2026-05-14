@@ -299,8 +299,8 @@ onMounted(async () => {
 }
 
 .step-title {
-  font-size: 28px;
-  font-weight: 700;
+  font-size: 35px;
+  font-weight: 600;
   color: var(--text-primary);
   margin: 0 0 24px;
   line-height: 1.25;
@@ -353,7 +353,7 @@ onMounted(async () => {
 .modal {
   background: #fff;
   border-radius: 20px;
-  padding: 32px 24px 20px;
+  padding: 60px 25px 25px;
   max-width: 340px;
   width: 100%;
   text-align: center;
@@ -368,7 +368,7 @@ onMounted(async () => {
 
 .modal-title {
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0 0 12px;
   color: var(--text-primary);
   line-height: 1.3;
@@ -383,13 +383,13 @@ onMounted(async () => {
 }
 
 .modal-btn-primary {
-  width: 100%;
-  height: 48px;
+  width: 80%;
+  height: 45px;
   border-radius: 9999px;
   background: #111;
   color: #fff;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 8px;
 }
 

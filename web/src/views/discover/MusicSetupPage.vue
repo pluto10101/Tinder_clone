@@ -118,7 +118,7 @@ function onSave() {
             <div style="width:28px;"></div>
           </div>
           <div class="search-input-wrap">
-            <span class="search-icon">🔍</span>
+            <svg class="search-icon-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M446.112323 177.545051c137.567677 0.219798 252.612525 104.59798 266.162424 241.493333 13.562828 136.895354-78.778182 261.818182-213.617777 289.008485-134.852525 27.203232-268.386263-52.156768-308.945455-183.608889s25.018182-272.252121 151.738182-325.779394A267.235556 267.235556 0 0 1 446.112323 177.545051m0-62.060607c-182.794343 0-330.989899 148.195556-330.989899 330.989899s148.195556 330.989899 330.989899 330.989899 330.989899-148.195556 330.989899-330.989899-148.195556-330.989899-330.989899-330.989899z m431.321212 793.341415a30.849293 30.849293 0 0 1-21.94101-9.102223l-157.220202-157.220202c-11.752727-12.179394-11.584646-31.534545 0.37495-43.50707 11.972525-11.972525 31.327677-12.140606 43.494141-0.37495l157.220202 157.220202a31.036768 31.036768 0 0 1 6.723232 33.810101 31.004444 31.004444 0 0 1-28.651313 19.174142z m0 0"/></svg>
             <input v-model="searchQuery" class="search-input" placeholder="在 Spotify 上搜索歌曲" />
           </div>
           <div class="search-section-title">热门</div>
@@ -209,7 +209,7 @@ function onSave() {
 .search-close { width: 28px; height: 28px; font-size: 16px; color: #111; background: none; border: none; }
 .search-title { font-size: 17px; font-weight: 700; color: #111; }
 .search-input-wrap { display: flex; align-items: center; gap: 8px; margin: 8px 20px 16px; padding: 12px 14px; background: #f2f2f2; border-radius: 10px; }
-.search-icon { font-size: 14px; opacity: 0.5; }
+.search-icon-svg { width: 16px; height: 16px; fill: #999; flex-shrink: 0; }
 .search-input { flex: 1; border: 0; background: transparent; font-size: 14px; color: #111; outline: none; }
 .search-input::placeholder { color: #999; }
 .search-section-title { padding: 0 20px 8px; font-size: 15px; font-weight: 600; color: #111; }

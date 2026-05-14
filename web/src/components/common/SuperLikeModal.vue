@@ -74,14 +74,14 @@ function slTouchEnd(e: TouchEvent) {
 .sl-page { position: fixed; inset: 0; z-index: 100; background: #fff; display: flex; flex-direction: column; overflow: hidden; }
 .sl-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; }
 .sl-close { width: 32px; height: 32px; font-size: 18px; color: #111; background: none; border: none; cursor: pointer; }
-.sl-header-title { font-size: 15px; font-weight: 600; color: #42a5f5; }
+.sl-header-title { font-size: 18px; font-weight: 400; color: #050505ff; }
 .sl-body { flex: 1; overflow-y: auto; padding: 0 24px 32px; }
-.sl-title { font-size: 22px; font-weight: 800; color: #111; margin: 0 0 24px; line-height: 1.4; }
-.sl-subtitle { font-size: 14px; color: #666; margin: 0 0 16px; }
+.sl-title { font-size: 28px; font-weight: 400; color: #111; margin: 0 0 24px; line-height: 1.4; }
+.sl-subtitle { font-size: 25px; color: #666; margin: 0 0 16px; }
 
-.sl-plans-carousel { overflow: hidden; margin-bottom: 12px; }
+.sl-plans-carousel { overflow: hidden; margin-bottom: 30px; }
 .sl-plans-track { display: flex; gap: 12px; transition: transform 0.3s ease; }
-.sl-plan { min-width: 75%; padding: 20px; border-radius: 12px; border: 1.5px solid #e8e8e8; display: flex; flex-direction: column; gap: 8px; position: relative; flex-shrink: 0; cursor: pointer; }
+.sl-plan { min-width: 75%; padding: 30px; border-radius: 12px; border: 1.5px solid #e8e8e8; display: flex; flex-direction: column; gap: 8px; position: relative; flex-shrink: 0; cursor: pointer; }
 .sl-plan-active { border-color: #42a5f5; }
 .sl-hot { font-size: 11px; color: #42a5f5; font-weight: 600; min-height: 16px; }
 .sl-best { font-size: 11px; color: #42a5f5; font-weight: 600; min-height: 16px; }

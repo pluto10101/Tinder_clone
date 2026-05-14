@@ -60,10 +60,10 @@ function select(label: string) {
 
 <style scoped>
 .subtitle {
-  font-size: 14px;
+  font-size: 18px;
   color: var(--text-secondary);
   margin: 0 0 20px;
-  line-height: 1.6;
+  line-height: 4.0;
 }
 
 .options {
@@ -73,7 +73,7 @@ function select(label: string) {
 }
 
 .option {
-  height: 52px;
+  height: 50px;
   border: 1px solid #d5d5d5;
   border-radius: 10px;
   font-size: 15px;

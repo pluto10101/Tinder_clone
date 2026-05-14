@@ -42,7 +42,25 @@ function enterAstro() {
 
       <!-- 太阳星座 -->
       <div class="astro-item">
-        <div class="astro-badge">☀️</div>
+        <div class="astro-badge sunburst-container">
+          <div class="sunburst-outer-glow"></div>
+          <div class="sunburst-core-highlight"></div>
+          <svg class="sunburst-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="tinderGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" style="stop-color:#ffffff; stop-opacity:1" />
+                <stop offset="25%" style="stop-color:#ffccd5; stop-opacity:1" />
+                <stop offset="60%" style="stop-color:#ff3d72; stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#bd1e4a; stop-opacity:1" />
+              </radialGradient>
+            </defs>
+            <path d="M50 0 L55 38 L68 12 L65 40 L85 25 L75 45 L98 42 L80 53 L98 68 L76 65 L88 88 L67 74 L68 98 L56 78 L50 100 L44 78 L32 98 L33 74 L12 88 L24 65 L2 68 L20 53 L2 42 L25 45 L15 25 L35 40 L32 12 L45 38 Z"
+              fill="url(#tinderGrad)"
+              stroke="#fe3c72"
+              stroke-width="1.5"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
         <div class="astro-content">
           <div class="astro-label" style="color: #e8a838;">太阳水瓶座 ♒</div>
           <div class="astro-title">核心个性</div>
@@ -52,7 +70,7 @@ function enterAstro() {
 
       <!-- 月亮星座（锁定） -->
       <div class="astro-item astro-locked">
-        <div class="astro-badge">🔒</div>
+        <div class="astro-badge"><svg class="lock-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM12 17c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9z"/></svg></div>
         <div class="astro-content">
           <div class="astro-label">月亮星座</div>
           <div class="astro-title">情感内心</div>
@@ -62,7 +80,7 @@ function enterAstro() {
 
       <!-- 上升星座（锁定） -->
       <div class="astro-item astro-locked">
-        <div class="astro-badge">🔒</div>
+        <div class="astro-badge"><svg class="lock-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM12 17c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9z"/></svg></div>
         <div class="astro-content">
           <div class="astro-label">上升星座</div>
           <div class="astro-title">他人眼中的你</div>
@@ -109,16 +127,40 @@ function enterAstro() {
 
 .astro-item { display: flex; gap: 12px; margin-bottom: 24px; }
 .astro-badge { font-size: 28px; flex: none; margin-top: 4px; }
+.sunburst-container {
+  position: relative; width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+}
+.sunburst-outer-glow {
+  position: absolute; width: 28px; height: 28px;
+  background: #fe3c72; border-radius: 50%;
+  filter: blur(10px); opacity: 0.6;
+}
+.sunburst-core-highlight {
+  position: absolute; width: 10px; height: 10px;
+  background: radial-gradient(circle, #ffffff 0%, rgba(255,255,255,0) 70%);
+  filter: blur(3px); z-index: 3; pointer-events: none;
+}
+.sunburst-icon {
+  width: 32px; height: 32px; z-index: 2;
+  filter: blur(0.5px) drop-shadow(0 0 6px #fe3c72) drop-shadow(0 0 2px #ff8ba7);
+  animation: sunpulse 2s infinite ease-in-out;
+}
+@keyframes sunpulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+.lock-icon { width: 32px; height: 32px; fill: #b39ddb; transform: rotate(15deg); }
 .astro-content { flex: 1; }
 .astro-label { font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 2px; }
 .astro-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; }
 .astro-desc { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.5; margin: 0; }
 .astro-locked .astro-title { color: rgba(255,255,255,0.6); }
 
-.footer { position: relative; z-index: 5; padding: 16px 24px 8px; text-align: center; }
+.footer { position: relative; z-index: 5; padding: 16px 24px 20px; text-align: center; }
 .enter-btn {
   width: 100%; height: 52px; border-radius: 9999px;
-  background: #fff; color: #111; font-size: 16px; font-weight: 600; margin-bottom: 12px;
+  background: #fff; color: #111; font-size: 16px; font-weight: 600; margin-bottom: 22px;
 }
 .add-btn { font-size: 15px; font-weight: 600; color: #fff; padding: 8px; }
 </style>

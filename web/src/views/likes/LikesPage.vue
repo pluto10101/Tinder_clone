@@ -181,7 +181,14 @@ function slTouchEnd(e: TouchEvent) {
     <main v-if="activeTab === 'likes'" class="main likes-main" @scroll="onLikesScroll">
       <!-- 筛选标签 -->
       <div class="filter-row">
-        <button class="filter-icon" @click="showFilterSheet = true">⚙</button>
+        <button class="filter-icon press" @click="showFilterSheet = true">
+          <svg class="filter-icon-svg" viewBox="0 0 24 24">
+            <circle cx="7" cy="8" r="2.5" />
+            <line x1="11" y1="8" x2="19" y2="8" />
+            <line x1="5" y1="16" x2="13" y2="16" />
+            <circle cx="17" cy="16" r="2.5" />
+          </svg>
+        </button>
         <div class="filter-tags no-scrollbar">
           <span v-for="f in filters" :key="f" class="filter-tag" @click="openGold">{{ f }}</span>
         </div>
@@ -223,7 +230,9 @@ function slTouchEnd(e: TouchEvent) {
           <button class="pick-star press" @click.stop="openSuperLike">★</button>
         </div>
       </div>
-      <button class="gold-cta press" @click="openGold">解锁所有最佳精选</button>
+      <div class="gold-cta-float">
+        <button class="gold-cta press" @click="openGold">解锁所有最佳精选</button>
+      </div>
     </main>
 
     <!-- 精选用户详情页 -->
@@ -379,14 +388,15 @@ function slTouchEnd(e: TouchEvent) {
 
 /* Likes main scrollable */
 .likes-main { overflow-y: auto; max-height: calc(100vh - 160px); padding-bottom: 80px !important; position: relative; }
-.picks-main { overflow-y: auto; max-height: calc(100vh - 160px); padding-bottom: 24px; }
+.picks-main { overflow-y: auto; max-height: calc(100vh - 160px); padding-bottom: 80px; }
 
 /* Filters */
 .filter-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-.filter-icon { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #666; }
+.filter-icon { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; }
+.filter-icon-svg { width: 18px; height: 18px; stroke: #666; stroke-width: 2.8; stroke-linecap: round; fill: none; }
 .filter-tags { display: flex; gap: 8px; overflow-x: auto; flex: 1; }
 .filter-tag { padding: 6px 14px; border-radius: 9999px; border: 1px solid #ddd; font-size: 13px; color: #333; white-space: nowrap; cursor: pointer; }
-.upgrade-hint { font-size: 13px; color: #666; margin: 0 0 16px; }
+.upgrade-hint { font-size: 14px; color: #2c2b2bff; margin: 0 0 16px; text-align: center; }
 .section-label { font-size: 16px; font-weight: 700; color: #111; margin: 0 0 12px; }
 
 /* Likes Grid */
@@ -400,8 +410,8 @@ function slTouchEnd(e: TouchEvent) {
 .like-purpose { padding: 2px 12px 10px; font-size: 11px; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* Gold CTA */
-.gold-cta-float { position: sticky; bottom: 0; left: 0; right: 0; padding: 12px 0; background: linear-gradient(to top, #fff 60%, transparent); z-index: 10; }
-.gold-cta { width: 100%; height: 48px; border-radius: 9999px; background: linear-gradient(135deg, #d4a017, #f5c518); color: #111; font-size: 15px; font-weight: 700; }
+.gold-cta-float { position: sticky; bottom: 0; left: 0; right: 0; padding: -1px 0; z-index: 10; }
+.gold-cta { width: 80%; height: 48px; border-radius: 9999px; background: linear-gradient(135deg, #d4a017, #f5c518); color: #111; font-size: 15px; font-weight: 600; display: block; margin: 0 auto; }
 
 /* Picks */
 .picks-hint { font-size: 14px; color: #666; text-align: center; margin: 0 0 16px; line-height: 1.5; }
@@ -412,7 +422,7 @@ function slTouchEnd(e: TouchEvent) {
 .pick-name { font-size: 14px; font-weight: 700; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
 .pick-age { font-size: 14px; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
 .pick-remaining { position: absolute; bottom: 28px; left: 10px; font-size: 11px; color: #f5c518; font-weight: 600; }
-.pick-star { position: absolute; bottom: 8px; right: 8px; width: 32px; height: 32px; border-radius: 50%; background: rgba(66,165,245,0.9); color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+.pick-star { position: absolute; bottom: 8px; right: 9px; width: 32px; height: 32px; border-radius: 70%; background: #fff; color: #42a5f5; font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
 .pick-locked { opacity: 0.5; }
 .pick-lock-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.4); z-index: 1; }
 

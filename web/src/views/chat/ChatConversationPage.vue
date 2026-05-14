@@ -59,13 +59,22 @@ function goBack() { router.back(); }
       <div class="chat-user">
         <div class="chat-user-avatar-wrap">
           <img v-if="!isTinder" :src="currentChat.photo" class="chat-user-avatar" />
-          <div v-else class="tinder-avatar-sm">🔥</div>
+          <div v-else class="tinder-avatar-sm">
+            <svg class="tinder-flame-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#fff" fill-rule="evenodd" d="M514 924.9l-3.1-0.2c-157-0.4-284.7-128.2-284.7-285.4 0-5.4 0-10.9 0.4-16.3 4.6-159.4 84.2-202.4 93.3-206.8 10-4.9 22.1-4.8 32.3 0.6 10.2 5.4 17.1 15.3 18.8 26.6 0.1 0.6 7.8 46.6 32.2 71.4 1.3-36.1 5-79.3 15-119.1 20.1-79.2 77.4-162.1 146-211.2 10.9-7.9 25.2-8.9 37.3-2.7 12 6.2 19.4 18.4 19.4 31.8 0 61.5 31 103.3 70.3 156.1 44.9 60.5 95.8 128.9 104.3 240.1v0.1c0.2 2.2 1.6 21.5 1.6 29.4 0 156.1-126.3 283.6-282.1 285.3l-1 0.3zM330.8 459.2c-17.4 13.2-58.9 56-62.1 165.8-0.3 5.2-0.3 9.8-0.3 14.4 0 134 109.1 243.1 243.1 243.1h0.6C645.9 882 754.7 773 754.7 639.3c0-4.8-0.9-18.6-1.4-26.3-7.6-99-54.6-162.2-96-218-38.3-51.4-74.4-100-78.4-168.7-56.6 44.3-103 113.6-119.8 179.8-12.4 49.3-14.2 105.7-14.5 143.8l-0.2 26-25.4-5.4c-61.6-13.3-82.5-84.8-88.2-111.3z m258-240.4z"/>
+              <path fill="#fff" fill-rule="evenodd" d="M529.2 831.6c-11 0-20.3-8.5-21.1-19.6-0.8-11.6 7.9-21.8 19.6-22.6 50.9-3.7 94.1-39.2 107.6-88.4 3.1-11.3 14.8-17.9 26-14.8 11.3 3.1 17.9 14.7 14.8 26-18.2 66.5-76.6 114.4-145.3 119.4h-1.6z"/>
+            </svg>
+          </div>
         </div>
         <span class="chat-user-name">{{ currentChat.name }}</span>
         <span v-if="currentChat.verified && !isTinder" class="chat-verified">✓</span>
         <span v-if="isTinder" class="tinder-verified">💗</span>
       </div>
-      <button class="more-btn press" @click="showSafetySheet = true">•••</button>
+      <button class="more-btn press" @click="showSafetySheet = true">
+        <svg class="more-btn-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+          <path d="M128 512a64 64 0 1 0 128 0 64 64 0 0 0-128 0zM448 512a64 64 0 1 0 128 0 64 64 0 0 0-128 0zM768 512a64 64 0 1 0 128 0 64 64 0 0 0-128 0z" fill="#000000" opacity=".65"/>
+        </svg>
+      </button>
     </header>
 
     <!-- 聊天内容区 -->
@@ -124,7 +133,7 @@ function goBack() { router.back(); }
               </div>
             </div>
             <div class="safety-item" @click="showSafetySheet = false">
-              <span class="safety-icon safety-icon-report">🚩</span>
+              <span class="safety-icon safety-icon-report"><svg class="safety-svg-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#E8E8E8"/><path d="M876.8 603.2z" fill=""/><path d="M438.4 153.6l-17.6 3.2c-97.6 22.4-168-3.2-203.2-22.4V496c49.6 46.4 144 51.2 289.6 17.6 137.6-32 283.2 17.6 337.6 40h1.6V164.8c-179.2-62.4-291.2-36.8-408-11.2z" fill="#F2385A"/><path d="M865.6 139.2C672 68.8 548.8 96 430.4 123.2l-17.6 3.2c-90.208 19.552-153.568-4.704-183.44-20.976 16.768-9.856 28.144-27.872 28.144-48.72C257.504 25.392 232.112 0 200.8 0S144.096 25.392 144.096 56.704c0 25.424 16.848 46.688 39.904 53.872V1024h32V536c60.8 38.4 160 40 297.6 8 158.4-36.8 337.6 46.4 339.2 46.4l22.4 11.2V142.4l-9.6-3.2z m-19.2 414.4h-1.6c-54.4-22.4-200-72-337.6-40-145.6 33.6-240 28.8-289.6-17.6V134.4c35.2 19.2 105.6 44.8 203.2 22.4l17.6-3.2c116.8-25.6 228.8-51.2 408 11.2v388.8z" fill=""/><path d="M200.8 56.704m-23.872 0a23.872 23.872 0 1 0 47.744 0 23.872 23.872 0 1 0-47.744 0Z" fill="#F2385A"/></svg></span>
               <div class="safety-item-text">
                 <strong>举报 {{ currentChat.name }}</strong>
                 <p>别担心——我们不会告知对方。</p>
@@ -214,20 +223,22 @@ function goBack() { router.back(); }
 .chat-user { display: flex; align-items: center; gap: 10px; flex: 1; }
 .chat-user-avatar-wrap { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; }
 .chat-user-avatar { width: 100%; height: 100%; object-fit: cover; }
-.tinder-avatar-sm { width: 100%; height: 100%; background: linear-gradient(135deg, #FD297B, #FF655B); display: flex; align-items: center; justify-content: center; font-size: 18px; border-radius: 50%; }
+.tinder-avatar-sm { width: 100%; height: 100%; background: linear-gradient(135deg, #FD297B, #FF655B); display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+.tinder-flame-svg { width: 32px; height: 32px; }
 .chat-user-name { font-size: 16px; font-weight: 600; color: #111; }
 .chat-verified { width: 18px; height: 18px; border-radius: 50%; background: #42a5f5; color: #fff; font-size: 10px; display: inline-flex; align-items: center; justify-content: center; }
 .tinder-verified { font-size: 14px; }
-.more-btn { font-size: 18px; color: #111; letter-spacing: -1px; font-weight: 700; }
+.more-btn { display: flex; align-items: center; justify-content: center; }
+.more-btn-icon { width: 22px; height: 22px; }
 
-.chat-body { flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: flex-end; }
-.chat-messages { padding: 16px 16px 8px; display: flex; flex-direction: column; gap: 12px; }
+.chat-body { flex: 1; overflow-y: auto; display: flex; flex-direction: column; justify-content: flex-end; position: relative; }
+.chat-messages { padding: 16px 16px 8px; display: flex; flex-direction: column; gap: 12px; flex: 1; position: relative; }
 
 .date-divider { text-align: center; font-size: 12px; color: #bbb; padding: 8px 0; }
 
-.system-msg { text-align: center; padding: 8px 0; }
+.system-msg { text-align: center; padding: 8px 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; }
 .system-text { font-size: 13px; color: #999; margin: 0 0 12px; }
-.system-avatar { width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin: 0 auto; border: 3px solid #f0f0f0; }
+.system-avatar { width: 200px; height: 200px; border-radius: 80%; overflow: hidden; margin: 0 auto; border: 3px solid #f0f0f0; }
 .system-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
 .them-msg { display: flex; align-items: flex-end; gap: 8px; }
@@ -245,7 +256,7 @@ function goBack() { router.back(); }
 .astro-hint-link { color: #b8860b; font-weight: 600; text-decoration: underline; }
 
 .chat-input-bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-top: 1px solid #f0f0f0; background: #fff; }
-.gif-btn { padding: 6px 10px; border-radius: 6px; border: 1.5px solid #4cdc8f; color: #4cdc8f; font-size: 12px; font-weight: 700; }
+.gif-btn { width: 36px; height: 36px; border-radius: 50%; background: #0a68b4ff; color: #fff; font-size: 11px; font-weight: 700; border: none; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .chat-input { flex: 1; border: 0; padding: 10px 14px; font-size: 14px; color: #111; background: #f5f5f5; border-radius: 9999px; outline: none; }
 .chat-input::placeholder { color: #bbb; }
 .send-btn { font-size: 14px; font-weight: 600; color: #42a5f5; padding: 8px; }
@@ -253,14 +264,15 @@ function goBack() { router.back(); }
 
 /* Safety Sheet */
 .safety-mask { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.5); display: flex; align-items: flex-end; }
-.safety-sheet { background: #fff; border-radius: 16px 16px 0 0; width: 100%; padding: 12px 24px 32px; }
+.safety-sheet { background: #fff; border-radius: 16px 16px 0 0; width: 100%; padding: 12px 24px 32px; height: 33vh; overflow-y: auto; }
 .safety-handle { width: 36px; height: 4px; border-radius: 2px; background: #ddd; margin: 0 auto 20px; }
-.safety-title { font-size: 20px; font-weight: 800; color: #111; margin: 0 0 20px; }
+.safety-title { font-size: 30px; font-weight: 300; color: #111; margin: 0 0 20px; }
 .safety-items { display: flex; flex-direction: column; gap: 20px; }
 .safety-item { display: flex; align-items: flex-start; gap: 14px; cursor: pointer; }
 .safety-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; margin-top: 2px; }
 .safety-icon-unmatch { background: #ffeaa7; color: #d63031; font-weight: 700; font-size: 16px; }
 .safety-icon-report { background: #ffe0e0; }
+.safety-svg-icon { width: 24px; height: 24px; }
 .safety-icon-block { background: #f0f0f0; }
 .safety-icon-center { background: #e3f2fd; }
 .safety-item-text { flex: 1; }
@@ -291,7 +303,7 @@ function goBack() { router.back(); }
 .compat-compare-card { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 14px; backdrop-filter: blur(4px); }
 .compat-compare-top { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
 .compat-compare-top strong { color: #fff; font-size: 13px; }
-.compat-compare-signs { font-size: 12px; color: rgba(255,255,255,0.7); margin: 0 0 6px; }
+.compat-compare-signs { font-size: 12px; color: rgba(31, 29, 29, 0.7); margin: 0 0 6px; }
 .compat-sign-highlight { color: #e8a838; }
 .compat-compare-desc { font-size: 14px; color: #fff; line-height: 1.5; margin: 0; }
 .compat-dots { display: flex; gap: 6px; justify-content: center; margin-top: 10px; }
