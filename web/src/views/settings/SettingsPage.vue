@@ -42,6 +42,10 @@ onMounted(async () => {
       ageMin.value = s.age_min || 18;
       ageMax.value = s.age_max || 33;
     }
+    // 加载已有兴趣
+    if (userStore.profile?.interests?.length) {
+      selectedInterests.value = [...userStore.profile.interests];
+    }
   } catch {}
 });
 
@@ -125,6 +129,13 @@ function toggleInterest(tag: string) {
   else if (selectedInterests.value.length < 10) selectedInterests.value.push(tag);
 }
 
+function saveAndCloseInterests() {
+  if (userStore.profile && selectedInterests.value.length > 0) {
+    userStore.updateProfile({ interests: selectedInterests.value }).catch(() => {});
+  }
+  showInterestsPage.value = false;
+}
+
 // 半弹窗
 const showHalfSheet = ref(false);
 const halfSheetTitle = ref('');
@@ -161,7 +172,40 @@ function toggleHalfSheetOption(opt: string) {
   else halfSheetSelected.value.push(opt);
 }
 
-function closeHalfSheet() { showHalfSheet.value = false; halfSheetFull.value = false; }
+function closeHalfSheet() {
+  const selected = halfSheetSelected.value;
+  if (selected.length > 0 && userStore.profile) {
+    // 把选中值写回 profile 对应字段并保存
+    const patch: Record<string, unknown> = {};
+    switch (halfSheetTitle.value) {
+      case '我想要':
+        patch.dating_purpose = selected;
+        break;
+      case '饮酒':
+        patch.lifestyles = { ...(userStore.profile.lifestyles || {}), drinking: selected[0] };
+        break;
+      case '你多久抽一次烟？':
+        patch.lifestyles = { ...(userStore.profile.lifestyles || {}), smoking: selected[0] };
+        break;
+      case '健身情况':
+        patch.lifestyles = { ...(userStore.profile.lifestyles || {}), exercise: selected[0] };
+        break;
+      case '宠物喜好':
+        patch.lifestyles = { ...(userStore.profile.lifestyles || {}), pets: selected[0] };
+        break;
+      case '社交媒体活跃度':
+        patch.lifestyles = { ...(userStore.profile.lifestyles || {}), social_media: selected[0] };
+        break;
+      default:
+        // 其余选项存入 lifestyles 扩展字段
+        patch.lifestyles = { ...(userStore.profile.lifestyles || {}), [halfSheetTitle.value]: selected[0] };
+        break;
+    }
+    userStore.updateProfile(patch as never).catch(() => {});
+  }
+  showHalfSheet.value = false;
+  halfSheetFull.value = false;
+}
 
 let sheetTouchStartY = 0;
 function onSheetTouchStart(e: TouchEvent) { sheetTouchStartY = e.touches[0].clientY; }
@@ -575,7 +619,7 @@ function goBack() {
     <Transition name="slide-up">
       <div v-if="showInterestsPage" class="interests-page">
         <header class="ip-header">
-          <button class="ip-close press" @click="showInterestsPage = false">✕</button>
+          <button class="ip-close press" @click="saveAndCloseInterests">✕</button>
           <div class="ip-title-row">
             <h1 class="ip-title">兴趣</h1>
             <span class="ip-count">{{ selectedInterests.length }}/10</span>

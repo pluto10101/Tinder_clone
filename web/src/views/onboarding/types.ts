@@ -93,6 +93,13 @@ export const STEPS: StepDef[] = [
     isValid: (d) => !!d.looking_for,
   },
   {
+    key: 'distance',
+    title: '你希望结识多远的人？',
+    required: false,
+    skippable: true,
+    isValid: () => true,
+  },
+  {
     key: 'purpose',
     title: '你想要查找什么？',
     required: true,
@@ -102,9 +109,9 @@ export const STEPS: StepDef[] = [
   {
     key: 'education',
     title: '说说你的教育背景',
-    required: true,
-    skippable: false,
-    isValid: (d) => d.degree.trim().length > 0,
+    required: false,
+    skippable: true,
+    isValid: () => true,
   },
   {
     key: 'lifestyle',
@@ -130,9 +137,9 @@ export const STEPS: StepDef[] = [
   {
     key: 'photos',
     title: '添加你的近照',
-    required: true,
-    skippable: false,
-    isValid: (d) => d.photos.length >= 2,
+    required: false,
+    skippable: true,
+    isValid: (d) => d.photos.length >= 1,
   },
   {
     key: 'bio',

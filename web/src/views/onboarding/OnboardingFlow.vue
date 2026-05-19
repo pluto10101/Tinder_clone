@@ -11,6 +11,7 @@ import BirthdayStep from './steps/BirthdayStep.vue';
 import GenderStep from './steps/GenderStep.vue';
 import OrientationStep from './steps/OrientationStep.vue';
 import PreferenceStep from './steps/PreferenceStep.vue';
+import DistanceStep from './steps/DistanceStep.vue';
 import PurposeStep from './steps/PurposeStep.vue';
 import EducationStep from './steps/EducationStep.vue';
 import LifestyleStep from './steps/LifestyleStep.vue';
@@ -72,6 +73,7 @@ const STEP_COMPONENTS: Record<string, unknown> = {
   gender: GenderStep,
   orientation: OrientationStep,
   preference: PreferenceStep,
+  distance: DistanceStep,
   purpose: PurposeStep,
   education: EducationStep,
   lifestyle: LifestyleStep,
@@ -129,33 +131,51 @@ async function finish() {
   error.value = '';
   try {
     const d = draft.value;
+
+    // sexual_orientation: 前端选项值 → 数据库 ENUM 映射
+    // DB ENUM: straight | gay | bisexual | asexual | other
+    const orientationMap: Record<string, string> = {
+      straight:    'straight',
+      gay_male:    'gay',
+      gay_female:  'gay',
+      bisexual:    'bisexual',
+      asexual:     'asexual',
+      demi:        'other',
+      pan:         'other',
+      queer:       'other',
+      questioning: 'other',
+      unlisted:    'other',
+    };
+    const rawOrientation = d.sexual_orientation[0] ?? null;
+    const orientationVal = rawOrientation ? (orientationMap[rawOrientation] ?? 'other') : null;
+
     await userStore.updateProfile({
-      name: d.name,
-      birthday: d.birthday,
-      gender: d.gender || null,
-      sexual_orientation: d.sexual_orientation || null,
-      looking_for: d.looking_for || null,
-      bio: d.bio,
-      school: d.school,
-      degree: d.degree,
-      dating_purpose: d.dating_purpose,
-      interests: d.interests,
-      lifestyles: d.lifestyles,
-      personality: d.personality,
+      name:               d.name,
+      birthday:           d.birthday,
+      gender:             d.gender || null,
+      sexual_orientation: orientationVal as never,
+      looking_for:        d.looking_for || null,
+      bio:                d.bio || null,
+      school:             d.school || null,
+      degree:             d.degree || null,
+      dating_purpose:     d.dating_purpose,
+      interests:          d.interests,
+      lifestyles:         d.lifestyles,
+      personality:        d.personality,
       onboarding_complete: true,
       settings: {
         ...(userStore.profile?.settings || {
-          distance_max_km: 50,
-          age_min: 18,
-          age_max: 60,
-          gender_preference: 'all',
-          show_age: true,
-          show_distance: true,
+          distance_max_km:    50,
+          age_min:            18,
+          age_max:            60,
+          gender_preference:  'all',
+          show_age:           true,
+          show_distance:      true,
           show_online_status: true,
         }),
-        distance_max_km: d.distance_max_km,
-        show_gender: d.show_gender,
-        show_orientation: d.show_orientation,
+        distance_max_km:  d.distance_max_km,
+        show_gender:      !!d.show_gender,
+        show_orientation: !!d.show_orientation,
       },
     });
     auth.setOnboardingComplete(true);

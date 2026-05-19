@@ -19,6 +19,9 @@ export interface UserSettings {
   show_distance: boolean;
   show_orientation: boolean;
   show_online_status: boolean;
+  min_photos_filter: number;
+  show_beyond_distance: boolean;
+  show_beyond_age: boolean;
 }
 
 export interface UserProfile {
@@ -36,11 +39,28 @@ export interface UserProfile {
   company: string | null;
   city: string | null;
   height_cm: number | null;
+  // JSON 数组字段
   dating_purpose: string[];
   interests: string[];
   lifestyles: Record<string, string>;
   personality: string[];
+  languages: string[];
+  profile_extras: Record<string, string>;
+  // 生活习惯独立列
+  drinking: string | null;
+  smoking: string | null;
+  exercise: string | null;
+  pets: string | null;
+  // 性格独立列
+  zodiac: string | null;
+  communication_style: string | null;
+  love_language: string | null;
+  // 其他独立字段
+  family_plan: string | null;
+  social_media_activity: string | null;
+  // 照片
   photos: Photo[];
+  // 账号状态
   is_verified: boolean;
   membership: MembershipTier;
   membership_expires_at: string | null;

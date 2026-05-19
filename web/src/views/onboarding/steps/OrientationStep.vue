@@ -6,44 +6,15 @@ const props = defineProps<{ draft: OnboardingDraft }>();
 const emit = defineEmits<{ 'update:draft': [v: OnboardingDraft] }>();
 
 const OPTIONS = [
-  { value: 'straight', label: '异性恋', desc: '仅会被相反性别吸引的人士' },
-  { value: 'gay_male', label: '男同性恋', desc: '这是一个统称术语，指会被同性吸引的人士' },
-  {
-    value: 'gay_female',
-    label: '女同性恋',
-    desc: '对其他女性产生爱慕感、能建立浪漫关系或认为其他女性具有性吸引力的女士',
-  },
-  {
-    value: 'bisexual',
-    label: '双性恋',
-    desc: '对一种以上的性别者有可能产生爱慕感、建立浪漫关系或认为这些性别者具有性吸引力的人士',
-  },
-  { value: 'asexual', label: '无性恋', desc: '感受不到性吸引力的人士' },
-  {
-    value: 'demi',
-    label: '半性恋',
-    desc: '只有与他人建立深厚的情感联系才能感受到性吸引力的人士',
-  },
-  {
-    value: 'pan',
-    label: '泛性恋',
-    desc: '对任意性别者均有可能产生爱慕感、建立浪漫关系或认为任意性别者均具有性吸引力的人士',
-  },
-  {
-    value: 'queer',
-    label: '酷儿',
-    desc: '这是一个用于指代一系列性向和性别的统称，它往往涵盖不属于完全异性恋的性别或性向',
-  },
-  {
-    value: 'questioning',
-    label: '疑性恋',
-    desc: '正在探索自身性向和/或性别的人士',
-  },
-  {
-    value: 'unlisted',
-    label: '未列出',
-    desc: '请告知我们还缺什么性别。',
-  },
+  { value: 'straight',    label: '异性恋',   desc: '仅会被相反性别吸引的人士' },
+  { value: 'gay',         label: '同性恋',   desc: '这是一个统称术语，指会被同性吸引的人士' },
+  { value: 'bisexual',    label: '双性恋',   desc: '对一种以上的性别者有可能产生爱慕感、建立浪漫关系或认为这些性别者具有性吸引力的人士' },
+  { value: 'asexual',     label: '无性恋',   desc: '感受不到性吸引力的人士' },
+  { value: 'demi',        label: '半性恋',   desc: '只有与他人建立深厚的情感联系才能感受到性吸引力的人士' },
+  { value: 'pan',         label: '泛性恋',   desc: '对任意性别者均有可能产生爱慕感、建立浪漫关系或认为任意性别者均具有性吸引力的人士' },
+  { value: 'queer',       label: '酷儿',     desc: '这是一个用于指代一系列性向和性别的统称，它往往涵盖不属于完全异性恋的性别或性向' },
+  { value: 'questioning', label: '疑性恋',   desc: '正在探索自身性向和/或性别的人士' },
+  { value: 'unlisted',    label: '未列出',   desc: '请告知我们还缺什么性别。' },
 ];
 
 const selected = computed({

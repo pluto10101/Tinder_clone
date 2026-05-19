@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import type { OnboardingDraft } from '../types';
 
 const props = defineProps<{ draft: OnboardingDraft }>();
@@ -9,6 +9,9 @@ const bio = computed({
   get: () => props.draft.bio,
   set: (v: string) => emit('update:draft', { ...props.draft, bio: v.slice(0, 500) }),
 });
+
+const showBioInput = ref(false);
+const showCaptionInput = ref(false);
 </script>
 
 <template>
@@ -18,12 +21,12 @@ const bio = computed({
     </p>
 
     <!-- 个人简介卡片 -->
-    <div class="card">
+    <div class="card" @click="showBioInput = !showBioInput">
       <div class="card-content">
         <div class="card-title">个人简介</div>
         <div class="card-desc">介绍下自己，给人留下强烈印象。</div>
       </div>
-      <button class="card-add press">
+      <button class="card-add press" @click.stop="showBioInput = !showBioInput">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <circle cx="12" cy="12" r="12" fill="#111" />
           <path d="M12 7v10M7 12h10" stroke="#fff" stroke-width="2" stroke-linecap="round" />
@@ -31,13 +34,25 @@ const bio = computed({
       </button>
     </div>
 
+    <!-- 个人简介输入框 -->
+    <div v-if="showBioInput" class="bio-input-area">
+      <textarea
+        v-model="bio"
+        class="textarea"
+        rows="4"
+        placeholder="说点什么吧..."
+        autofocus
+      />
+      <div class="counter">{{ bio.length }} / 500</div>
+    </div>
+
     <!-- 照片配文卡片 -->
-    <div class="card">
+    <div class="card" @click="showCaptionInput = !showCaptionInput">
       <div class="card-content">
         <div class="card-title">选择一项照片配文</div>
         <div class="card-desc">添加"关于我"，秀出你的个性。</div>
       </div>
-      <button class="card-add press">
+      <button class="card-add press" @click.stop="showCaptionInput = !showCaptionInput">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <circle cx="12" cy="12" r="12" fill="#111" />
           <path d="M12 7v10M7 12h10" stroke="#fff" stroke-width="2" stroke-linecap="round" />
@@ -49,18 +64,6 @@ const bio = computed({
     <div class="tip">
       <span class="tip-icon">💡</span>
       <span class="tip-text">写个简短介绍，配对人数可能会提高<strong class="tip-highlight">25%</strong></span>
-    </div>
-
-    <!-- 隐藏的 textarea（点击"个人简介"卡片时展开） -->
-    <!-- 简化处理：直接在下方展示输入框 -->
-    <div v-if="false" class="bio-input-area">
-      <textarea
-        v-model="bio"
-        class="textarea"
-        rows="4"
-        placeholder="说点什么吧..."
-      />
-      <div class="counter">{{ bio.length }} / 500</div>
     </div>
   </div>
 </template>

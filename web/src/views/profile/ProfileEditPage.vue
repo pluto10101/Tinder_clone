@@ -21,6 +21,7 @@ const heightCm = ref<number | null>(null);
 const jobTitle = ref('');
 const company = ref('');
 const school = ref('');
+const degree = ref('');
 const city = ref('');
 const gender = ref('');
 const showGender = ref(true);
@@ -29,6 +30,19 @@ const showOrientation = ref(false);
 const showAge = ref(true);
 const showDistance = ref(true);
 const lifestyles = ref<Record<string, string>>({});
+// 新增独立字段
+const drinking = ref('');
+const smoking = ref('');
+const exercise = ref('');
+const pets = ref('');
+const zodiac = ref('');
+const communicationStyle = ref('');
+const loveLanguage = ref('');
+const familyPlan = ref('');
+const languages = ref<string[]>([]);
+const socialMediaActivity = ref('');
+const saveError = ref('');
+const saveSuccess = ref(false);
 
 const PHOTO_SLOTS = 9;
 
@@ -36,24 +50,36 @@ onMounted(async () => {
   try {
     if (!userStore.profile) await userStore.fetchProfile();
     const p = userStore.profile!;
-    photos.value = [...(p.photos || [])];
-    bio.value = p.bio || '';
-    jobTitle.value = p.job_title || '';
-    company.value = p.company || '';
-    school.value = p.school || '';
-    city.value = p.city || '';
-    gender.value = p.gender || '';
-    heightCm.value = p.height_cm;
-    interests.value = [...(p.interests || [])];
+    photos.value       = [...(p.photos || [])];
+    bio.value          = p.bio || '';
+    jobTitle.value     = p.job_title || '';
+    company.value      = p.company || '';
+    school.value       = p.school || '';
+    degree.value       = p.degree || '';
+    city.value         = p.city || '';
+    gender.value       = p.gender || '';
+    heightCm.value     = p.height_cm;
+    interests.value    = [...(p.interests || [])];
     datingPurpose.value = [...(p.dating_purpose || [])];
-    lifestyles.value = { ...(p.lifestyles || {}) };
-    orientation.value = Array.isArray(p.sexual_orientation)
+    lifestyles.value   = { ...(p.lifestyles || {}) };
+    orientation.value  = Array.isArray(p.sexual_orientation)
       ? p.sexual_orientation.join(', ')
       : (p.sexual_orientation || '');
-    showGender.value = p.settings?.show_gender ?? true;
+    showGender.value      = p.settings?.show_gender ?? true;
     showOrientation.value = p.settings?.show_orientation ?? false;
-    showAge.value = p.settings?.show_age ?? true;
-    showDistance.value = p.settings?.show_distance ?? true;
+    showAge.value         = p.settings?.show_age ?? true;
+    showDistance.value    = p.settings?.show_distance ?? true;
+    // 新增独立字段
+    drinking.value            = p.drinking || '';
+    smoking.value             = p.smoking || '';
+    exercise.value            = p.exercise || '';
+    pets.value                = p.pets || '';
+    zodiac.value              = p.zodiac || '';
+    communicationStyle.value  = p.communication_style || '';
+    loveLanguage.value        = p.love_language || '';
+    familyPlan.value          = p.family_plan || '';
+    languages.value           = [...(p.languages || [])];
+    socialMediaActivity.value = p.social_media_activity || '';
   } catch {}
   loading.value = false;
 });
@@ -87,27 +113,44 @@ async function removePhoto(id: number) {
 async function save() {
   if (saving.value) return;
   saving.value = true;
+  saveError.value = '';
+  saveSuccess.value = false;
   try {
     await userStore.updateProfile({
-      bio: bio.value,
-      job_title: jobTitle.value,
-      company: company.value,
-      school: school.value,
-      city: city.value,
-      height_cm: heightCm.value,
-      interests: interests.value,
-      dating_purpose: datingPurpose.value,
-      lifestyles: lifestyles.value,
+      bio:                    bio.value || null,
+      job_title:              jobTitle.value || null,
+      company:                company.value || null,
+      school:                 school.value || null,
+      degree:                 degree.value || null,
+      city:                   city.value || null,
+      height_cm:              heightCm.value,
+      interests:              interests.value,
+      dating_purpose:         datingPurpose.value,
+      lifestyles:             lifestyles.value,
+      // 独立字段
+      drinking:               drinking.value || null,
+      smoking:                smoking.value || null,
+      exercise:               exercise.value || null,
+      pets:                   pets.value || null,
+      zodiac:                 zodiac.value || null,
+      communication_style:    communicationStyle.value || null,
+      love_language:          loveLanguage.value || null,
+      family_plan:            familyPlan.value || null,
+      languages:              languages.value,
+      social_media_activity:  socialMediaActivity.value || null,
       settings: {
-        ...(userStore.profile?.settings || {} as any),
-        show_gender: showGender.value,
-        show_orientation: showOrientation.value,
-        show_age: showAge.value,
-        show_distance: showDistance.value,
+        ...(userStore.profile?.settings || {} as never),
+        show_gender:      !!showGender.value,
+        show_orientation: !!showOrientation.value,
+        show_age:         !!showAge.value,
+        show_distance:    !!showDistance.value,
       },
     });
-    router.back();
-  } catch {}
+    saveSuccess.value = true;
+    setTimeout(() => router.back(), 600);
+  } catch (e: unknown) {
+    saveError.value = e instanceof Error ? e.message : '保存失败，请重试';
+  }
   saving.value = false;
 }
 
@@ -141,10 +184,29 @@ const optionsMap: Record<string, string[]> = {
 };
 
 function openHalfSheet(title: string) {
-  halfSheetTitle.value = title;
+  halfSheetTitle.value   = title;
   halfSheetOptions.value = optionsMap[title] || [];
-  halfSheetSelected.value = [];
-  halfSheetFull.value = false;
+  halfSheetFull.value    = false;
+
+  // 回显已有选中值
+  switch (title) {
+    case '兴趣':          halfSheetSelected.value = [...interests.value]; break;
+    case '我想要':        halfSheetSelected.value = [...datingPurpose.value]; break;
+    case '身高':          halfSheetSelected.value = heightCm.value ? [`${heightCm.value} cm`] : []; break;
+    case '教育情况':      halfSheetSelected.value = degree.value ? [degree.value] : []; break;
+    case '添加语言':      halfSheetSelected.value = [...languages.value]; break;
+    case '星座':          halfSheetSelected.value = zodiac.value ? [zodiac.value] : []; break;
+    case '家庭计划':      halfSheetSelected.value = familyPlan.value ? [familyPlan.value] : []; break;
+    case '沟通风格':      halfSheetSelected.value = communicationStyle.value ? [communicationStyle.value] : []; break;
+    case '爱的方式':      halfSheetSelected.value = loveLanguage.value ? [loveLanguage.value] : []; break;
+    case '饮酒':          halfSheetSelected.value = drinking.value ? [drinking.value] : []; break;
+    case '你多久抽一次烟？': halfSheetSelected.value = smoking.value ? [smoking.value] : []; break;
+    case '健身情况':      halfSheetSelected.value = exercise.value ? [exercise.value] : []; break;
+    case '宠物喜好':      halfSheetSelected.value = pets.value ? [pets.value] : []; break;
+    case '社交媒体活跃度': halfSheetSelected.value = socialMediaActivity.value ? [socialMediaActivity.value] : []; break;
+    default:              halfSheetSelected.value = lifestyles.value[title] ? [lifestyles.value[title]] : []; break;
+  }
+
   showHalfSheet.value = true;
 }
 
@@ -154,7 +216,64 @@ function toggleHalfSheetOption(opt: string) {
   else halfSheetSelected.value.push(opt);
 }
 
-function closeHalfSheet() { showHalfSheet.value = false; halfSheetFull.value = false; }
+// 半弹窗关闭时把选中值写回对应字段
+function closeHalfSheet() {
+  const selected = halfSheetSelected.value;
+  if (selected.length > 0) {
+    switch (halfSheetTitle.value) {
+      case '兴趣':
+        interests.value = [...new Set([...interests.value, ...selected])].slice(0, 10);
+        break;
+      case '我想要':
+        datingPurpose.value = selected;
+        break;
+      case '身高': {
+        const h = parseInt(selected[0]);
+        if (!isNaN(h)) heightCm.value = h;
+        break;
+      }
+      case '教育情况':
+        degree.value = selected[0];
+        break;
+      case '添加语言':
+        languages.value = [...new Set([...languages.value, ...selected])];
+        break;
+      case '星座':
+        zodiac.value = selected[0];
+        break;
+      case '家庭计划':
+        familyPlan.value = selected[0];
+        break;
+      case '沟通风格':
+        communicationStyle.value = selected[0];
+        break;
+      case '爱的方式':
+        loveLanguage.value = selected[0];
+        break;
+      case '饮酒':
+        drinking.value = selected[0];
+        break;
+      case '你多久抽一次烟？':
+        smoking.value = selected[0];
+        break;
+      case '健身情况':
+        exercise.value = selected[0];
+        break;
+      case '宠物喜好':
+        pets.value = selected[0];
+        break;
+      case '社交媒体活跃度':
+        socialMediaActivity.value = selected[0];
+        break;
+      default:
+        // 其余选项存入 profile_extras（通过 lifestyles 兼容旧逻辑）
+        lifestyles.value = { ...lifestyles.value, [halfSheetTitle.value]: selected[0] };
+        break;
+    }
+  }
+  showHalfSheet.value = false;
+  halfSheetFull.value = false;
+}
 
 let sheetTouchStartY = 0;
 function onSheetTouchStart(e: TouchEvent) { sheetTouchStartY = e.touches[0].clientY; }
@@ -172,8 +291,13 @@ function onSheetTouchEnd(e: TouchEvent) {
     <header class="top-bar safe-top">
       <button class="back press" @click="goBack">←</button>
       <span class="top-title">编辑个人资料</span>
-      <div style="width: 32px;"></div>
+      <button class="save-btn press" :disabled="saving" @click="save">
+        {{ saving ? '保存中' : saveSuccess ? '✓ 已保存' : '保存' }}
+      </button>
     </header>
+
+    <!-- 错误提示 -->
+    <div v-if="saveError" class="save-error">{{ saveError }}</div>
 
     <!-- 编辑/预览 Tab -->
     <div class="tab-bar">
@@ -382,6 +506,20 @@ function onSheetTouchEnd(e: TouchEvent) {
         </div>
       </section>
 
+      <!-- 学历 -->
+      <section class="sec">
+        <div class="sec-header">
+          <div class="sec-title-row">
+            <span class="sec-dot"></span>
+            <span class="sec-title">学历</span>
+          </div>
+        </div>
+        <div class="input-card" @click="openHalfSheet('教育情况')">
+          <span :class="degree ? '' : 'placeholder-text'">{{ degree || '添加学历' }}</span>
+          <span class="arrow">›</span>
+        </div>
+      </section>
+
       <!-- 居住地 -->
       <section class="sec">
         <div class="sec-header">
@@ -532,6 +670,16 @@ function onSheetTouchEnd(e: TouchEvent) {
 }
 .back { width: 32px; height: 32px; font-size: 22px; color: #fe3c72; }
 .top-title { font-size: 16px; font-weight: 600; color: #111; margin-right: 200px; }
+.save-btn {
+  font-size: 15px; font-weight: 600; color: #fe3c72;
+  padding: 4px 8px;
+}
+.save-btn:disabled { opacity: 0.5; }
+.save-error {
+  background: #fff0f0; color: #e53e3e;
+  font-size: 13px; padding: 10px 16px;
+  border-bottom: 1px solid #fecaca;
+}
 
 .tab-bar {
   position: sticky; top: 52px; z-index: 10; background: #fff;
